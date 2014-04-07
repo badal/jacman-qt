@@ -52,10 +52,11 @@ module JacintheManagement
       ]
       # whether column may have button
       BUTTONS = [true, true, false, false, true, true]
+
       # Actions corresponding to the second row
       ACTION_FOR = [nil,
                     -> { Core::Sales.show_remaining_sales },
-                    -> { Core::Utils.open_file(Core::Clients::TRANSFERT_CLIENT_SAGE_DIR) },
+                    -> { Core::Clients::show_client_files },
                     nil,
                     nil,
                     -> { Core::Electronic.show_invalid_ranges },
