@@ -1,0 +1,2208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="AsciiDoc 8.5.2"/>
+<title>Documentation technique du manageur de Jacinthe</title>
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+    /*
+      border: 1px solid red;
+    */
+}
+
+body {
+    margin: 1em 5% 1em 5%;
+}
+
+a {
+    color: blue;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: fuchsia;
+}
+
+em {
+    font-style: italic;
+    color: navy;
+}
+
+strong {
+    font-weight: bold;
+    color: #083194;
+}
+
+tt {
+    color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #527bbd;
+    font-family: sans-serif;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+}
+
+h1, h2, h3 {
+    border-bottom: 2px solid silver;
+}
+
+h2 {
+    padding-top: 0.5em;
+}
+
+h3 {
+    float: left;
+}
+
+h3 + * {
+    clear: left;
+}
+
+div.sectionbody {
+    font-family: serif;
+    margin-left: 0;
+}
+
+hr {
+    border: 1px solid silver;
+}
+
+p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+    margin-top: 0;
+}
+
+pre {
+    padding: 0;
+    margin: 0;
+}
+
+span#author {
+    color: #527bbd;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+span#email {
+}
+
+span#revnumber, span#revdate, span#revremark {
+    font-family: sans-serif;
+}
+
+div#footer {
+    font-family: sans-serif;
+    font-size: small;
+    border-top: 2px solid silver;
+    padding-top: 0.5em;
+    margin-top: 4.0em;
+}
+
+div#footer-text {
+    float: left;
+    padding-bottom: 0.5em;
+}
+
+div#footer-badges {
+    float: right;
+    padding-bottom: 0.5em;
+}
+
+div#preamble {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+    margin-top: 1.0em;
+    margin-bottom: 1.5em;
+}
+
+div.admonitionblock {
+    margin-top: 2.0em;
+    margin-bottom: 2.0em;
+    margin-right: 10%;
+    color: #606060;
+}
+
+div.content {
+    /* Block element content. */
+    padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+    color: #527bbd;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 1.0em;
+    margin-bottom: 0.5em;
+}
+
+div.title + * {
+    margin-top: 0;
+}
+
+td div.title:first-child {
+    margin-top: 0.0em;
+}
+
+div.content div.title:first-child {
+    margin-top: 0.0em;
+}
+
+div.content + div.title {
+    margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+    background: #ffffee;
+    border: 1px solid silver;
+    padding: 0.5em;
+}
+
+div.listingblock > div.content {
+    border: 1px solid silver;
+    background: #f4f4f4;
+    padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+    padding-left: 1.0em;
+    margin-left: 1.0em;
+    margin-right: 10%;
+    border-left: 5px solid #dddddd;
+    color: #777777;
+}
+
+div.quoteblock > div.attribution {
+    padding-top: 0.5em;
+    text-align: right;
+}
+
+div.verseblock > div.content {
+    white-space: pre;
+}
+
+div.verseblock > div.attribution {
+    padding-top: 0.75em;
+    text-align: left;
+}
+
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+    text-align: left;
+}
+
+div.admonitionblock .icon {
+    vertical-align: top;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #527bbd;
+    padding-right: 0.5em;
+}
+
+div.admonitionblock td.content {
+    padding-left: 0.5em;
+    border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+    border-left: 3px solid #dddddd;
+    padding-left: 0.5em;
+}
+
+div.imageblock div.content {
+    padding-left: 0;
+}
+
+span.image img {
+    border-style: none;
+}
+
+a.image:visited {
+    color: white;
+}
+
+dl {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+dt {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    font-style: normal;
+    color: navy;
+}
+
+dd > *:first-child {
+    margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+
+ol.arabic {
+    list-style-type: decimal;
+}
+
+ol.loweralpha {
+    list-style-type: lower-alpha;
+}
+
+ol.upperalpha {
+    list-style-type: upper-alpha;
+}
+
+ol.lowerroman {
+    list-style-type: lower-roman;
+}
+
+ol.upperroman {
+    list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+div.tableblock > table {
+    border: 3px solid #527bbd;
+}
+
+thead, p.table.header {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+tfoot {
+    font-weight: bold;
+}
+
+td > div.verse {
+    white-space: pre;
+}
+
+p.table {
+    margin-top: 0;
+}
+
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+    border-style: none;
+}
+
+div.tableblock > table[frame="hsides"] {
+    border-left-style: none;
+    border-right-style: none;
+}
+
+div.tableblock > table[frame="vsides"] {
+    border-top-style: none;
+    border-bottom-style: none;
+}
+
+div.hdlist {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+div.hdlist tr {
+    padding-bottom: 15px;
+}
+
+dt.hdlist1.strong, td.hdlist1.strong {
+    font-weight: bold;
+}
+
+td.hdlist1 {
+    vertical-align: top;
+    font-style: normal;
+    padding-right: 0.8em;
+    color: navy;
+}
+
+td.hdlist2 {
+    vertical-align: top;
+}
+
+div.hdlist.compact tr {
+    margin: 0;
+    padding-bottom: 0;
+}
+
+.comment {
+    background: yellow;
+}
+
+.footnote, .footnoteref {
+    font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+    vertical-align: super;
+}
+
+#footnotes {
+    margin: 20px 0 20px 0;
+    padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+    margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+    border: none;
+    border-top: 1px solid silver;
+    height: 1px;
+    text-align: left;
+    margin-left: 0;
+    width: 20%;
+    min-width: 100px;
+}
+
+@media print {
+    div#footer-badges {
+        display: none;
+    }
+}
+
+div#toc {
+    margin-bottom: 2.5em;
+}
+
+div#toctitle {
+    color: #527bbd;
+    font-family: sans-serif;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 1.0em;
+    margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+div.toclevel2 {
+    margin-left: 2em;
+    font-size: 0.9em;
+}
+
+div.toclevel3 {
+    margin-left: 4em;
+    font-size: 0.9em;
+}
+
+div.toclevel4 {
+    margin-left: 6em;
+    font-size: 0.9em;
+}
+
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+    background: #ffffee;
+    border: 1px solid silver;
+    padding: 0.5em;
+}
+
+div.sidebar-title, div.image-title {
+    color: #527bbd;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 0.0em;
+    margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+    border: 1px solid silver;
+    background: #f4f4f4;
+    padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+    padding-top: 0.5em;
+    text-align: right;
+}
+
+div.verseblock-content {
+    white-space: pre;
+}
+
+div.verseblock-attribution {
+    padding-top: 0.75em;
+    text-align: left;
+}
+
+div.exampleblock-content {
+    border-left: 3px solid #dddddd;
+    padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited {
+    color: blue;
+}
+</style>
+<script type="text/javascript">
+    /*<![CDATA[*/
+    window.onload = function () {
+        asciidoc.footnotes();
+        asciidoc.toc(3);
+    }
+    var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+        /* Author: Mihai Bazon, September 2002
+         * http://students.infoiasi.ro/~mishoo
+         *
+         * Table Of Content generator
+         * Version: 0.4
+         *
+         * Feel free to use this script under the terms of the GNU General Public
+         * License, as long as you do not remove or alter this notice.
+         */
+
+        /* modified by Troy D. Hanson, September 2006. License: GPL */
+        /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+        toc: function (toclevels) {
+
+            function getText(el) {
+                var text = "";
+                for (var i = el.firstChild; i != null; i = i.nextSibling) {
+                    if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+                        text += i.data;
+                    else if (i.firstChild != null)
+                        text += getText(i);
+                }
+                return text;
+            }
+
+            function TocEntry(el, text, toclevel) {
+                this.element = el;
+                this.text = text;
+                this.toclevel = toclevel;
+            }
+
+            function tocEntries(el, toclevels) {
+                var result = new Array;
+                var re = new RegExp('[hH]([2-' + (toclevels + 1) + '])');
+                // Function that scans the DOM tree for header elements (the DOM2
+                // nodeIterator API would be a better technique but not supported by all
+                // browsers).
+                var iterate = function (el) {
+                    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+                        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+                            var mo = re.exec(i.tagName);
+                            if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+                                result[result.length] = new TocEntry(i, getText(i), mo[1] - 1);
+                            }
+                            iterate(i);
+                        }
+                    }
+                }
+                iterate(el);
+                return result;
+            }
+
+            var toc = document.getElementById("toc");
+            var entries = tocEntries(document.getElementById("content"), toclevels);
+            for (var i = 0; i < entries.length; ++i) {
+                var entry = entries[i];
+                if (entry.element.id == "")
+                    entry.element.id = "_toc_" + i;
+                var a = document.createElement("a");
+                a.href = "#" + entry.element.id;
+                a.appendChild(document.createTextNode(entry.text));
+                var div = document.createElement("div");
+                div.appendChild(a);
+                div.className = "toclevel" + entry.toclevel;
+                toc.appendChild(div);
+            }
+            if (entries.length == 0)
+                toc.parentNode.removeChild(toc);
+        },
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+        /* Based on footnote generation code from:
+         * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+         */
+
+        footnotes: function () {
+            var cont = document.getElementById("content");
+            var noteholder = document.getElementById("footnotes");
+            var spans = cont.getElementsByTagName("span");
+            var refs = {};
+            var n = 0;
+            for (i = 0; i < spans.length; i++) {
+                if (spans[i].className == "footnote") {
+                    n++;
+                    // Use [\s\S] in place of . so multi-line matches work.
+                    // Because JavaScript has no s (dotall) regex flag.
+                    note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+                    noteholder.innerHTML +=
+                            "<div class='footnote' id='_footnote_" + n + "'>" +
+                            "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+                            n + "</a>. " + note + "</div>";
+                    spans[i].innerHTML =
+                            "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+                            "' title='View footnote' class='footnote'>" + n + "</a>]";
+                    var id = spans[i].getAttribute("id");
+                    if (id != null) refs["#" + id] = n;
+                }
+            }
+            if (n == 0)
+                noteholder.parentNode.removeChild(noteholder);
+            else {
+                // Process footnoterefs.
+                for (i = 0; i < spans.length; i++) {
+                    if (spans[i].className == "footnoteref") {
+                        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+                        href = href.match(/#.*/)[0];  // Because IE return full URL.
+                        n = refs[href];
+                        spans[i].innerHTML =
+                                "[<a href='#_footnote_" + n +
+                                "' title='View footnote' class='footnote'>" + n + "</a>]";
+                    }
+                }
+            }
+        }
+
+    }
+    /*]]>*/
+</script>
+</head>
+<body>
+<div id="header">
+    <h1>Documentation technique du manageur de Jacinthe</h1>
+    <span id="author">Michel Demazure</span><br/>
+    <span id="email"><tt>&lt;<a href="mailto:michel@demazure.com">michel@demazure.com</a>&gt;</tt></span><br/>
+    <span id="revnumber">version 1.2,</span>
+    <span id="revdate">décembre 2013</span>
+    <br/><span id="revremark">version du logiciel <tt>1.9</tt></span>
+
+    <div id="toc">
+        <div id="toctitle">Table des matières</div>
+        <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+    </div>
+</div>
+<div id="content">
+<h2 id="_gen_ralit_s">Genéralités</h2>
+
+<div class="sectionbody">
+<div class="paragraph"><p>C’est un ensemble d&#8217;applications <tt>ruby</tt>, installé sur le serveur <strong>smf-gestion</strong>
+    (en fait <tt>smf-gestion.ihp.fr</tt>)
+    de la SMF, regroupé sous le titre <tt>JacintheManagement</tt>, abrégé en <strong>jacman</strong>.</p></div>
+<div class="paragraph"><p>Les sources et la documentation sont gérés sous <tt>Git</tt>. Les URL des dépôts sont</p>
+</div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt> https://mdemazure@bitbucket.org/mdemazure/jacman.git
+    https://mdemazure@bitbucket.org/mdemazure/j2r_doc.git</tt></pre>
+    </div>
+</div>
+<div class="paragraph"><p>Les fichiers sont documentés par le système <em>Yard</em>. Voici le compte-rendu de
+    <em>Yard</em> :</p></div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt> Files: 53
+    Modules: 22
+    Classes: 28
+    Constants: 138
+    Methods: 313</tt></pre>
+    </div>
+</div>
+<div class="paragraph"><p>Ce qui suit constitue à la fois un mode d&#8217;emploi et une documentation de plus haut
+    niveau, dans le but de faciliter la maintenance et l’évolution du système.</p></div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Notes</div>
+                <div class="paragraph"><p>Sous forme de notes telles que celle-ci, on trouvera des remarques plus
+                    techniques, jouant le plus souvent un rôle de &#171;&#160;pense-bête&#160;&#187;.</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<h3 id="_logiciels_et_biblioth_ques">Logiciels et bibliothèques</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>L’application est sous licence <em>Open Source</em> <tt>MIT</tt>. Elle n’utilise que des
+    logiciels <em>Open source</em>. De façon plus précise :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                Elle fonctionne sous <tt>ruby</tt> 1.9 et 2.1 (plus précisément 1.9.3 et 2.1.0, version MRI ;
+                elle n’a pas été testée sous <tt>jruby</tt> ou <tt>rubinius</tt>).
+            </p>
+        </li>
+        <li>
+            <p>
+                Pour interroger la base de données <em>Jacinthe-BD</em>, elle utilise le gem <tt>mysql2</tt>.
+            </p>
+        </li>
+        <li>
+            <p>
+                Pour la commande d&#8217;envoi du tableau de bord, elle utilise <tt>JacintheReports</tt>, et donc
+                nécessite le gem <tt>sequel</tt>.
+            </p>
+        </li>
+        <li>
+            <p>
+                Les interfaces graphiques (GUI = <em>graphic user interface</em>) sont développées dans le système <tt>Qt</tt>
+                (ex <em>Nokia</em>), via le gem <tt>qtbindings</tt>.
+            </p>
+        </li>
+    </ul>
+</div>
+<h3 id="_syst_me_d_exploitation">Système d’exploitation</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>L’application a été développée sous <em>Windows</em>, puis portée sur le serveur de la SMF
+    tournant sous <em>Darwin</em> (OSX). Elle fonctionne identiquement sous les deux systèmes avec pour chacun l’aspect
+    graphique natif.
+    Elle fonctionne également sous <em>linux</em> (testé sous <em>CentOS.6-4</em>).</p></div>
+<div class="paragraph"><p>Les chemins de dossiers donnée dans la présente documentation sont ceux de l&#8217;installation
+    d&#8217;exploitation sur le serveur <strong>smf-gestion</strong> de la SMF.</p></div>
+<h3 id="_les_ex_cutables">Les exécutables</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Ils sont au nombre de cinq. Les deux principaux sont des interfaces graphiques : le <a
+        href="#manager"><strong>manageur général</strong></a> et le <a href="#catalog"><strong>manageur du
+    catalogue</strong></a>. Les trois autres sont des outils batch, que nous verrons <a href="#exec">ci-dessous</a>.</p>
+</div>
+<h3 id="_liste_des_dossiers_principaux">Liste des dossiers principaux</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Les fichiers source se trouvent sur le serveur <strong>smf-gestion</strong>. Le dossier de
+    tête du serveur est</p></div>
+<div class="listingblock">
+    <div class="content">
+        <pre><tt> ~gestion/SMF_SERVEUR</tt></pre>
+    </div>
+</div>
+<div class="paragraph"><p>que nous abrégerons ci-dessous par <tt>SMF_SERVEUR</tt>.</p></div>
+<div class="paragraph"><p>Le dossier de tête de JacintheManagement est</p></div>
+<div class="listingblock">
+    <div class="content">
+        <pre><tt> SMF_SERVEUR/Jacinthe/Tools/Library/JacintheManagement</tt></pre>
+    </div>
+</div>
+<div class="paragraph"><p>à côté des dossiers <tt>JacintheDatabase</tt> et <tt>JacintheReports</tt> qui contiennent
+    respectivement les sources SQL des modules de JacintheD et les sources de J2R.</p></div>
+<div class="paragraph"><p>Les principaux sous-dossiers de premier niveau en sont :</p></div>
+<div class="hdlist">
+    <table>
+        <tr>
+            <td class="hdlist1">
+                <strong>bin</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    les exécutables (tels que <tt>manager.sh</tt>)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>doc</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    la documentation des sources (accès par <tt>index.html</tt>)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>help</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    les fichiers d&#8217;aide (celui-ci notamment)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>lib</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    les sources ruby
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>models</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    les fichiers modèles des mails de notification (<tt>english_model_mail.txt</tt> et <tt>french_model_mail.txt</tt>)
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="paragraph"><p>Au second niveau dans <tt>lib</tt>, on trouve les cinq fichiers principaux des cinq
+    exécutables (tels que <tt>manager.rb</tt>), le fichier de configuration du serveur, <tt>my_config.rb</tt>, et le
+    fichier de paramétrage <a href="#config"><tt>defaults.ini</tt></a>.</p></div>
+<div class="paragraph"><p>En-dessous de <strong>lib</strong>, le dossier <strong>jacman</strong> contient deux
+    sous-dossiers :</p></div>
+<div class="hdlist">
+    <table>
+        <tr>
+            <td class="hdlist1">
+                <strong>core</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    toutes les méthodes exécutant les commandes
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>Qt</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    l&#8217;ensemble des fichiers des GUI.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="paragraph"><p>Cette décomposition reflète la décomposition de l&#8217;application en deux couches : le noyau
+    <em>jacman/core</em> qui contient toutes la machinerie interne (le &#171;&#160;modèle&#160;&#187; au sens MVC), et
+    le code des GUI.</p></div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">gems et application web</div>
+                <div class="paragraph"><p>Le dossier <tt>jacman/core</tt> est en fait un <em>gem</em> interne, qui peut
+                    être extrait et stocké comme gem.
+                    Il suffit alors de remplacer dans le fichier <tt>lib/jacman/require_core.rb</tt> la ligne</p></div>
+                <div class="listingblock">
+                    <div class="content">
+                        <pre><tt> require_relative 'core.rb'</tt></pre>
+                    </div>
+                </div>
+                <div class="paragraph"><p>à laquelle il se réduit pratiquement, par la ligne</p></div>
+                <div class="listingblock">
+                    <div class="content">
+                        <pre><tt> require 'jacman-core'</tt></pre>
+                    </div>
+                </div>
+                <div class="paragraph"><p>Cela dans le but de remplacer ultérieurement les GUI par un interface web.</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="paragraph"><p>Le dossier <strong>core</strong> contient notamment deux sous-dossiers :</p></div>
+<div class="hdlist">
+    <table>
+        <tr>
+            <td class="hdlist1">
+                <strong>commands</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    les diverses commandes (classe <tt>Command</tt>)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>sql</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    une vingtaine de fichiers contenant des instructions <tt>sql</tt> utilisées par les précédentes.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<h3 id="_le_fichier_de_configuration_du_serveur_tt_my_config_rb_tt">Le fichier de configuration du serveur <tt>my_config_rb</tt>
+</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Il contient essentiellement deux choses :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                Les paramètres de connexion au serveur interne de <tt>MySQL</tt> (les connexions aux <a
+                    href="#exterieur">serveurs externes</a> sont décrites dans les fichiers <tt>transmission.rb</tt> et
+                <tt>aspaway_importer.rb</tt>).
+            </p>
+        </li>
+        <li>
+            <p>
+                Les sous-dossiers utiles de <tt>SMF_SERVEUR</tt> et notamment la localisation des données manipulées par
+                les commandes. Elles figurent dans deux dossiers :
+            </p>
+
+            <div class="hdlist">
+                <table>
+                    <tr>
+                        <td class="hdlist1">
+                            <strong>SMF_SERVEUR/Transfert</strong>
+                            <br/>
+                        </td>
+                        <td class="hdlist2">
+                            <p style="margin-top: 0;">
+                                les fichiers de transfert avec <strong>Gescom</strong> (clients, ventes et catalogue),
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hdlist1">
+                            <strong>SMF_SERVEUR/Data</strong>
+                            <br/>
+                        </td>
+                        <td class="hdlist2">
+                            <p style="margin-top: 0;">
+                                les dumps de la base, les autres fichiers de transfert et des fichiers de renseignement
+                                divers.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Git</div>
+                <div class="paragraph"><p>Le fichier <tt>my_config.rb</tt> est &#171;&#160;ignoré&#160;&#187; par le
+                    système de contrôle de source <strong>git</strong> pour deux raisons :</p></div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p>
+                                il est propre à l&#8217;installation (c&#8217;est le sens du préfixe <tt>my_</tt>), car
+                                il contient &#171;&#160;en dur&#160;&#187; les chemins des dossiers,
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                il contient les mots de passe de <tt>MySQL</tt>, qu&#8217;on ne tient pas à voir
+                                circuler sur le réseau.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+<h2 id="commandes">Les commandes</h2>
+
+<div class="sectionbody">
+<div class="paragraph"><p>Au niveau fonctionnel, JacintheManagement regroupe un ensemble de commandes individuelles,
+    toutes concernant la liaison de Jacinthe avec le reste du système d&#8217;information de la SMF.</p></div>
+<div class="sidebarblock">
+    <div class="sidebar-content">
+        <div class="paragraph"><p>Lorsqu&#8217;on utilisera ci-dessous les mots &#171;&#160;importer&#160;&#187; et
+            &#171;&#160;exporter&#160;&#187; sans qualificatif, ce sera toujours entendu du point de vue de Jacinthe. On
+            importe dans Jacinthe et on exporte depuis Jacinthe.</p></div>
+    </div>
+</div>
+<h3 id="exterieur">Le monde extérieur</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Ce &#171;&#160;reste du monde&#160;&#187; avec lequel Jacinthe communique est formé des quatre
+    composants suivants :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                Le serveur <strong>smf</strong>, plus connu en interne sous le nom de <strong>drupal</strong>, hébergé
+                par Mathrice : plus précisément, il s&#8217;agit de <tt>smf.emath.fr</tt>, d&#8217;adresse
+                134.206.83.32, mail géré par <tt>smail.math.u-bordeaux1.fr</tt>.
+            </p>
+        </li>
+        <li>
+            <p>
+                Le serveur <strong>smf4</strong>, également hébergé par Mathrice, plus précisément
+                <tt>smf4.emath.fr</tt>, d&#8217;adresse 134.206.83.16, mail géré comme ci-dessus.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Certificats</div>
+                <div class="paragraph"><p>Les communications entre <strong>smf-gestion</strong> d&#8217;un côté,
+                    <strong>smf</strong> et <strong>smf4</strong> de l&#8217;autre, sont sécurisées par des certificats,
+                    liés au compte de Kenji sur Mathrice. Il faudra à terme trouver un autre compte et modifier ces
+                    certificats.</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                Les deux serveurs (<tt>smf-2.ihp.fr</tt> et le serveur d&#8217;Aspaway) utilisés dans la communication
+                avec le logiciel <tt>Gescom</tt> de SAGE.
+            </p>
+        </li>
+    </ul>
+</div>
+<h3 id="_le_cas_de_tt_gescom_tt">Le cas de <tt>Gescom</tt></h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>La situation du logiciel Gescom (composante du système <tt>Sage</tt> consacrée à la GEStion
+    COMmerciale) est très spéciale pour plusieurs raisons.</p></div>
+<div class="paragraph"><p>D&#8217;abord, il est installé, sur un serveur distant (serveur d&#8217;Aspaway à Clichy).</p>
+</div>
+<div class="paragraph"><p>Ensuite, il fonctionne dans un environnement différent (<tt>Windows</tt>). Les fichiers qu&#8217;il
+    lit et qu&#8217;il écrit sont aux normes <tt>Windows</tt> (encodage et fins de lignes)</p></div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Conversions</div>
+                <div class="paragraph"><p>Les routines de conversion des fichiers sont rassemblées dans un module
+                    (classe <tt>WinFile</tt>). Le fichier source est <tt>lib/jacman/core/utils/win_file.rb</tt>.</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="paragraph"><p>Enfin, les communications se font par l&#8217;intermédiaire de fichiers. Cela couvre deux
+    situations non symétriques :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                De Jacinthe vers Gescom, on écrit un fichier par le manageur, ce fichier est transmis au serveur d&#8217;Aspaway.
+                Il faut aller le lire avec Gescom. Après lecture, on le renvoie vers Jacinthe, qui du coup sait qu&#8217;il
+                a été lu.
+            </p>
+        </li>
+        <li>
+            <p>
+                De Gescom vers Jacinthe, on écrit le fichier par Gescom, on le transmet à <tt>smf-2</tt>. Cette
+                transmission est détectée automatiquement par le manageur qui procède à l&#8217;importation dans
+                Jacinthe.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="paragraph"><p>On précisera <a href="#Aspaway">plus loin</a> ces mécanismes.</p></div>
+<h3 id="_les_commandes_8220_normales_8221">Les commandes &#171;&#160;normales&#160;&#187;</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Elles couvrent les opérations usuelles de gestion du système. Leurs noms sont abrégés par un
+    groupe de deux lettres, le premier désignant le &#171;&#160;partenaire&#160;&#187; ou le cadre, l&#8217;autre
+    référant au contenu de l&#8217;opération. On a ainsi :</p></div>
+<div class="hdlist">
+    <table>
+        <tr>
+            <td class="hdlist1">
+                <strong>gi</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Gescom Import) : Importer les ventes depuis <strong>Gescom</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ge</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Gescom Export) : Exporter les clients vers <strong>Gescom</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>gr</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Gescom Re-envoyer) : Envoyer à nouveau à <strong>Gescom</strong> en cas d&#8217;erreur.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>di</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Drupal Import) : Importer les informations depuis <strong>Drupal</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>de</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Drupel export) : Exporter les informations vers <strong>Drupal</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ea</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Electronique Abonnements) : Exporter des abonnements électroniques vers <strong>smf4</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ep</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Electronique Plages) : Exporter les plages IP vers <strong>smf4</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>en</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Electronique Notifications) : Notifier par mail les nouveaux abonnements électroniques.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ei</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Electronique Invalides) : Ouvrir le fichier des plages IP invalides.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ca</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Catalogue Articles) : Importer au catalogue les articles depuis <strong>Gescom</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ca</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Catalogue Tarifs) : Importer au catalogue les tarifs depuis <strong>Gescom</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ca</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Catalogue Nomenclature) : Importer au catalogue la nomenclature depuis <strong>Gescom</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ca</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Catalogue Stocks) : Importer au catalogue les stocks depuis <strong>Gescom</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>ca</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Catalogue Export) : Exporter le catalogue.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>tb</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    (Tableau de Bord) : Créer et envoyer le tableau de bord.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Noms des dossiers et fichiers du catalogue</div>
+                <div class="paragraph"><p>Les noms des dossiers et fichiers d&#8217;exportation de Gescom pour le
+                    catalogue (<tt>Articles</tt> par exemple) sont parfois au singulier, parfois au pluriel, de façon
+                    surprenante (<tt>Nomenclatures</tt>, mais <tt>Stock</tt>). C&#8217;est un résidu de l&#8217;histoire,
+                    que je n&#8217;ai pas voulu modifier. Il faudra un jour normaliser cela et renommer les choses dans
+                    le code et sur le serveur. Il en est de même des alternances orthographiques entre homonymes
+                    français et anglais : transfert/transfer, tarif/tariff &#8230;</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<h3 id="_les_commandes_8220_de_d_veloppement_8221">Les commandes &#171;&#160;de développement&#160;&#187;</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Il s&#8217;agit de commandes réservées aux développeurs, non accessibles par les interfaces
+    graphiques. Ce sont :</p></div>
+<div class="dlist">
+    <dl>
+        <dt class="hdlist1">
+            <strong>jpd</strong>
+        </dt>
+        <dd>
+            <p>
+                (Jacinthe Partial Dump) : dump partiel de la base de données.
+            </p>
+        </dd>
+        <dt class="hdlist1">
+            <strong>jtd</strong>
+        </dt>
+        <dd>
+            <p>
+                (Jacinthe Total Dump) : dump total de la base de données.
+            </p>
+        </dd>
+        <dt class="hdlist1">
+            <strong>jpr</strong>
+        </dt>
+        <dd>
+            <p>
+                (Jacinthe Partial Reset) : restauration partielle de la base de données.
+            </p>
+        </dd>
+        <dt class="hdlist1">
+            <strong>jtr</strong>
+        </dt>
+        <dd>
+            <p>
+                (Jacinthe Total Reset) : restauration totale de la base de données
+            </p>
+        </dd>
+        <dt class="hdlist1">
+            <strong>crb</strong>
+        </dt>
+        <dd>
+            <p>
+                (Catalogue Reset Base) : restauration partielle de la base catalogue
+            </p>
+        </dd>
+    </dl>
+</div>
+<h3 id="_les_autres_commandes">Les autres commandes</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Elles sont au nombre de deux. D&#8217;une part la commande de paramétrage
+    <strong>conf</strong>, que nous verrons <a href="#config">ci-dessous</a>, d&#8217;autre part la commande <strong>info</strong>
+    qui donne les informations sur l'état de Jacinthe, et notamment les opérations pendantes :</p></div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt> $&gt; batman info
+    26 ventes non importées
+    1 fichiers clients en cours
+    12 clients à exporter
+    5 notifications à faire
+    0 plages ip invalides
+    1 abonnés électroniques sans mail</tt></pre>
+    </div>
+</div>
+</div>
+<h2 id="exec">Les outils batch</h2>
+
+<div class="sectionbody">
+<div class="paragraph"><p>Il sont au nombre de trois :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                <tt>batman</tt> permet de lancer les commandes normales en mode console,
+            </p>
+        </li>
+        <li>
+            <p>
+                <tt>jacdev</tt> est analogue pour les commandes de développement,
+            </p>
+        </li>
+        <li>
+            <p>
+                <tt>cronman</tt> est identique à <tt>batman</tt> à ceci près qu&#8217;il déroute les messages vers
+                des fichiers.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">L&#8217;accès aux exécutables</div>
+                <div class="paragraph"><p>Un dossier spécial <tt>SMF_SERVEUR/Commandes</tt> contient des renvois
+                    vers les exécutables &#171;&#160;autorisés&#160;&#187;, à savoir <tt>batman.sh</tt> et les deux
+                    interfaces graphiques <tt>manager.sh</tt> et <tt>catalog_manager.sh</tt>, comme aussi d&#8217;ailleurs
+                    les deux interfaces graphiques de JacintheReports : <tt>reporter.sh</tt> et <tt>auditer.sh</tt>.
+                    Un mécanisme d&#8217;autorisation des utilisateurs (voir <tt>/etc/sudoers</tt>) permet à ces
+                    commandes de contenir les <tt>sudo</tt> nécessaires. Par exemple, le renvoi vers la commande
+                    <tt>path/to/command.sh</tt> est de la forme :</p></div>
+                <div class="listingblock">
+                    <div class="content">
+<pre><tt>&gt; cat command.sh
+    # -H set exec env to gestion's env
+    sudo -u gestion -H path/to/command.sh</tt></pre>
+                    </div>
+                </div>
+                <div class="paragraph"><p>Les exécutables <tt>cronman.sh</tt> et <tt>jacdev.sh</tt> n&#8217;apparaissent
+                    pas dans ces liens et ne sont donc accessibles qu&#8217;aux développeurs (utilisateur
+                    <tt>gestion</tt>
+                    ou superutilisateur).</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<h3 id="_batman">batman</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Seul de ces trois outils, <tt>batman</tt> est donc accessible aux utilisateurs &#171;&#160;normaux&#160;&#187;.
+    Voici un exemple de session :</p></div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt>$&gt; batman help
+    Liste des commandes du manageur :
+
+    &lt;vide&gt; ou &lt;erreur&gt; : cette réponse
+    help : cette réponse
+    help &lt;commande&gt; : aide sur &lt;commande&gt;
+
+    gi : Importer dans Jacinthe les nouvelles ventes à partir d'un fichier fourni par Gescom
+    ge : Extraire de JacintheD la liste des nouveaux clients et l'enregistrer dans un fichier
+    gr : Envoyer à nouveau les fichiers clients construits précédemment et non reçus
+    di : Importer dans Jacinthe les données contenues dans le serveur smf
+    de : Transférer les données depuis JacintheD vers le serveur smf
+    ca : Importer dans Jacinthe la liste des articles fournie par Gescom
+    cn : Importer dans Jacinthe la nomenclature fournie par Gescom
+    ct : Importer dans Jacinthe la liste des tarifs fournie par Gescom
+    cs : Importer dans Jacinthe l'état des stocks fourni par Gescom
+    ce : Récupérer dans un fichier les éléments du catalogue extraits de Jacinthe
+    ep : Envoyer au serveur smf4 les plages IP valides
+    ea : Envoyer au serveur smf4 les abonnements électroniques
+    en : Notifier par courriel aux tiers concernés leurs abonnements électroniques
+    ei : Ouvrir dans un éditeur la liste des plages invalides
+    tb : Construire le tableau de bord du jour et l'envoyer aux destinataires fixés
+
+    info : opérations pendantes
+    conf : Configuration du manageur
+
+    $&gt; batman help ce
+    Commande : Exporter le catalogue
+    Cette commande permet d'extraire de Jacinthe
+    de quoi fabriquer le catalogue.
+
+    Les renseignements extraits sont enregistrés dans le fichier 'catalog.csv'
+    qui se trouve dans le dossier C:/Users/gestion/SMF_SERVEUR/Data.
+
+    $&gt; batman ce
+    executing 'Exporter le catalogue'
+    Dumping catalog data into file /Users/gestion/SMF_SERVEUR/Data/catalogue.csv.
+    end of execution</tt></pre>
+    </div>
+</div>
+<h3 id="config">Paramétrage</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Un petit nombre de paramètres sont disponibles :</p></div>
+<div class="hdlist">
+    <table>
+        <tr>
+            <td class="hdlist1">
+                <strong>years</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    pour la commande <tt>de</tt> : nombre d&#8217;années d&#8217;activité à transférer à
+                    <strong>Drupal</strong>.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>bonus</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    pour la commande <tt>ea</tt> : bonus d&#8217;abonnement électronique en début d&#8217;année
+                    suivante.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>from</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    pour la commande <tt>en</tt> : adresse de l&#8217;expéditeur des notifications.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="hdlist1">
+                <strong>report</strong>
+                <br/>
+            </td>
+            <td class="hdlist2">
+                <p style="margin-top: 0;">
+                    pour la commande <tt>tb</tt> : adresse(s) d&#8217;envoi du tableau de bord.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="paragraph"><p>On peut les modifier par <tt>batman conf</tt>. La session suivante suffit à expliquer :
+</p></div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt> $&gt; batman conf
+    Fixe les valeurs des variables de configuration
+    Commande commune à batman et jacdev. Usage:
+    &lt;cmd&gt; désigne batman ou jacdev indifféremment.
+    &lt;cmd&gt; conf years N : nombre d'années d'activité à transférer à drupal
+    : actuellement 4
+    &lt;cmd&gt; conf bonus MM-JJ : bonus d'abonnement électronique l'année suivante
+    : modèle MM-JJ, exemple 04-01 (premier avril)
+    : actuellement 04-01
+    &lt;cmd&gt; conf from ADR : adresse de l'expéditeur des notifications
+    : actuellement smf@dma.ens.fr
+    &lt;cmd&gt; conf report ADR[ ADR ...] : adresse(s) d'envoi du tableau de bord
+    : actuellement smf.president@gmail.com
+
+    $&gt; batman conf years
+    Commande commune à batman et jacdev. Usage:
+    &lt;cmd&gt; désigne batman ou jacdev indifféremment.
+    &lt;cmd&gt; conf years N : nombre d'années d'activité à transférer à drupal
+    : actuellement 4
+
+    $&gt; batman conf years 5
+    nouvelle valeur 5 ; confirmez-vous ? [YyOo]
+    y
+    nouvelle valeur 5
+
+    $&gt; batman conf years 4
+    nouvelle valeur 4 ; confirmez-vous ? [YyOo]
+    y
+    nouvelle valeur 4</tt></pre>
+    </div>
+</div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Le fichier <tt>defaults.ini</tt></div>
+                <div class="paragraph"><p>Les valeurs des paramètres sont stockées dans un fichier
+                    <tt>defaults.ini</tt> au format YAML sur
+                    lequel on peut intervenir directement.</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<h3 id="_cronman">cronman</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Comme on l&#8217;a dit, <tt>cronman</tt> est une simple variante de <tt>batman</tt>,
+    destinée notamment à
+    l&#8217;exécution automatique par le démon <tt>cron</tt>, d&#8217;où son nom.</p></div>
+<div class="admonitionblock" id="cron">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Le dossier <tt>Cron</tt></div>
+                <div class="paragraph"><p>La commande <tt>cronman xy</tt>, où <tt>xy</tt> est l&#8217;une des
+                    commandes &#171;&#160;normales&#160;&#187;, exécute <tt>batman xy</tt>,
+                    mais déroute la sortie standard dans un fichier <tt>stdout_xy.txt</tt> et la sortie d&#8217;erreur
+                    dans un fichier <tt>stderr_xy.txt</tt>. Ces fichiers se trouvent dans le dossier
+                    <strong>Cron</strong> dont le chemin est indiqué dans le fichier de paramétrage
+                    <tt>my_config</tt>. L&#8217;existence et la date de ces fichiers permettent au manageur de
+                    surveiller les opérations automatiques.</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<h3 id="_jacdev">jacdev</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p><tt>jacdev</tt> est identique à <tt>batman</tt>, sauf qu&#8217;il concerne seulement les
+    cinq commandes de développement
+    (ainsi que <tt>conf</tt> et <tt>info</tt>)</p></div>
+</div>
+<h2 id="_les_automatismes">Les automatismes</h2>
+
+<div class="sectionbody">
+    <div class="paragraph"><p>En plus du déclenchement nocturne (par le démon <tt>cron</tt> du système) d&#8217;opérations
+        de maintenance
+        (voir <a href="#surveillance">ci-dessous</a>), <tt>JacintheManagement</tt> prévoit l&#8217;importation
+        automatique
+        dans Jacinthe des fichiers exportés par <tt>Gescom</tt>.</p></div>
+    <div class="paragraph"><p>Le mécanisme consiste à utiliser <tt>cronman</tt> et à comparer la date du fichier &#171;&#160;source&#160;&#187;
+        fourni par <tt>Gescom</tt> et la date du fichier <tt>stdout_??.txt</tt> produit par <tt>cronman</tt>.
+        C&#8217;est très simple (voir <strong>lib/jacman/Qt/aspaway_updater.rb</strong>).</p></div>
+    <div class="admonitionblock">
+        <table>
+            <tr>
+                <td class="icon">
+                    <div class="title">Note</div>
+                </td>
+                <td class="content">
+                    <div class="title">Gestion des automatismes</div>
+                    <div class="paragraph"><p>C&#8217;est la boucle de rafraichissement de l&#8217;affichage de l&#8217;heure
+                        du manageur (pour les ventes,
+                        ou du manageur du catalogue pour la catalogue) qui gère ces automatismes.
+                        Ils ne sont donc effectifs que lorsque les GUI sont en fonctionnement.
+                        Ainsi, si une exportation de <tt>Gescom</tt> a lieu alors que le GUI n&#8217;est pas lancé,
+                        l&#8217;automatisme ne sera démarré qu&#8217;au lancement du GUI. Cela explique pourquoi les
+                        GUI comportent pour chaque importation deux indicateurs : la date du fichier source et la date
+                        (et la réussite) de l&#8217;importation.</p></div>
+                    <div class="paragraph"><p>En outre, à la fois pour éviter de charger inutilement le serveur,
+                        et pour que les anomalies soient détectées au plus vite, la boucle de rafraichissement est
+                        arrêtée
+                        lorsque le GUI est minimisé (&#171;&#160;iconifié&#160;&#187;), de sorte que les automatismes ne
+                        sont déclenchés que
+                        orsque le GUI est &#171;&#160;ouvert&#160;&#187;.</p></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<h2 id="manager">Le manageur général</h2>
+
+<div class="sectionbody">
+    <div class="paragraph"><p>Il assure trois fonctions :</p></div>
+    <h3 id="surveillance">La surveillance des opérations automatiques.</h3>
+
+    <div style="clear:left"></div>
+    <div class="paragraph"><p>Voici l&#8217;aide affichée par le manager :</p></div>
+    <div class="listingblock">
+        <div class="content">
+<pre><tt> Cette zone est consacrée à la surveillance des opérations exécutées
+    automatiquement par le serveur, les cinq premières chaque nuit, la
+    dernière à chaque écriture du fichier des ventes.
+
+    Normalement, les cinq premiers indicateurs doivent être verts,
+    le dernier vert ou jaune.
+
+    Un indicateur jaune signale que l'opération n'a pas été exécutée dans
+    les dernières 24 heures, un indicateur rouge qu'il y a eu une erreur.
+    Dans ces deux cas, merci de prévenir le gestionnaire du serveur.</tt></pre>
+        </div>
+    </div>
+    <div class="paragraph"><p>Les cinq commandes automatiques nocturnes sont :</p></div>
+    <div class="ulist">
+        <ul>
+            <li>
+                <p>
+                    <tt>di</tt> : Importer les informations depuis <strong>drupal</strong>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    <tt>de</tt> : Exporter les informations vers <strong>drupal</strong>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    <tt>ea</tt> : Exporter des abonnements électroniques vers <strong>smf4</strong>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    <tt>ep</tt> : Exporter les plages IP vers <strong>smf4</strong>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    <tt>jtd</tt> : Dump total de la base.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <h3 id="_la_surveillance_des_op_rations_de_gestion_de_jacinthe_en_cours_en_attente_ou_faire">La surveillance des
+        opérations de gestion de Jacinthe en cours, en attente, ou à faire.</h3>
+
+    <div style="clear:left"></div>
+    <div class="paragraph"><p>Voici l&#8217;aide :</p></div>
+    <div class="listingblock">
+        <div class="content">
+<pre><tt> Cette zone est consacrée à la surveillance des diverses opérations de gestion.
+
+    Le code de couleur est le suivant :
+    - vert : rien à faire, rien d'anormal.
+    - jaune : il y quelque chose à faire ; le cas échéant, un fichier d'anomalie est consultable
+    - rouge : retard anormal (pour l'importation des ventes).
+
+    Les diverses opérations sont :
+    - Importation des ventes : date de la dernière importation.
+    - Ventes non importées : lors de la dernière importation.
+    - Fichier client : présence d'un fichier 'ClientSage' exporté par Jacinthe et non revenu.
+    - Nouveaux clients : présence dans la base de nouveaux clients à exporter.
+    - Notifications : présence dans la base d'abonnements (élec.) non notifiés.
+    - Plages non valides : détectées lors de la dernière exportation.
+    - Abonnés sans mail : détectés lors de la dernière notification.</tt></pre>
+        </div>
+    </div>
+    <div class="paragraph"><p>Comme on l&#8217;a dit plus haut, l&#8217;importation des ventes est ainsi l&#8217;objet
+        de deux surveillances :</p></div>
+    <div class="ulist">
+        <ul>
+            <li>
+                <p>
+                    dans cette seconde rangée, on détecte si l&#8217;exportation de <tt>Gescom</tt> est en retard,
+                </p>
+            </li>
+            <li>
+                <p>
+                    dans la première rangée, on surveille si la dernière importation s&#8217;est bien déroulée.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <h3 id="_les_commandes">Les commandes.</h3>
+
+    <div style="clear:left"></div>
+    <div class="paragraph"><p>Le troisième zone du manageur est consacrée aux commandes (volontaires).
+        Ce sont les six commandes <tt>de</tt>, <tt>di</tt>, <tt>ge</tt>, <tt>ep</tt>, <tt>ea</tt>, <tt>en</tt>.
+        Cela couvre toutes les commandes de batman, à l&#8217;exception de :</p></div>
+    <div class="ulist">
+        <ul>
+            <li>
+                <p>
+                    la commande <tt>gi</tt> d&#8217;importation des ventes qui est <em>automatique</em> comme on vient
+                    de l&#8217;expliquer,
+                </p>
+            </li>
+            <li>
+                <p>
+                    les commandes de catalogue, auxquelles le manageur du catalogue est consacré,
+                </p>
+            </li>
+            <li>
+                <p>
+                    la commande <tt>ei</tt> d&#8217;ouverture du fichier des plages <tt>IP</tt> invalides, qui est
+                    fournie automatiquement
+                    dans la zone précédente lorsque le fichier n&#8217;est pas vide.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div class="paragraph"><p>La seconde zone contient d&#8217;ailleurs des commandes analogues à <tt>ei</tt> proposant
+        l&#8217;ouverture de
+        fichiers d&#8217;anomalies, commandes qui ne figurent pas dans <tt>batman</tt>
+        (ventes non importées, abonnés sans mail).</p></div>
+    <div class="admonitionblock">
+        <table>
+            <tr>
+                <td class="icon">
+                    <div class="title">Note</div>
+                </td>
+                <td class="content">
+                    <div class="title">Pourquoi des commandes nouvelles ?</div>
+                    <div class="paragraph"><p>La base de <tt>JacintheManagement</tt>, à savoir <tt>batman</tt>, a été
+                        fabriquée par conversion (par MD)
+                        des <em>scripts Bash</em> (écrits par KLH). Il s&#8217;agissait d&#8217;abord de fournir
+                        exactement le même service.
+                        La conception du manageur est plus récente et a amené progressivement à une divergence d&#8217;avec
+                        <tt>batman</tt>.</p></div>
+                    <div class="paragraph"><p><tt>batman</tt> n&#8217;en est pas devenu inutile, ne serait-ce que parce
+                        qu&#8217;il ne nécessite qu&#8217;une liaison
+                        au serveur en <tt>ssh</tt> (et non un tunnel VPN). Pour garder un certain parallélisme, on peut
+                        envisager :</p></div>
+                    <div class="ulist">
+                        <ul>
+                            <li>
+                                <p>
+                                    soit d&#8217;ajouter à <tt>batman</tt> deux nouvelles commandes :
+                                </p>
+
+                                <div class="ulist">
+                                    <ul>
+                                        <li>
+                                            <p>
+                                                disons <strong>ga</strong> (Gescom Anomalie) : afficher les ventes non
+                                                importées,
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                disons <strong>es</strong> (Electronique Sansmail) : afficher les
+                                                abonnés sans mail.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <p>
+                                    soit de supprimer <tt>ei</tt> de <tt>batman</tt> (c&#8217;est-à-dire en fait une
+                                    ligne du <tt>help</tt>).
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="paragraph"><p>Notons aussi que les boutons des commandes <tt>ge</tt> et <tt>en</tt> ne sont actifs que
+        lorsque leur
+        utilisation a un sens (s&#8217;il y a des nouveaux clients, ou s&#8217;il y a des notifications à faire).</p>
+    </div>
+</div>
+<h2 id="catalog">Le manageur du catalogue</h2>
+
+<div class="sectionbody">
+    <h3 id="_le_catalogue_interne_de_jacinthe">Le catalogue interne de Jacinthe</h3>
+
+    <div style="clear:left"></div>
+    <div class="paragraph"><p>Voici ce qu&#8217;en dit l&#8217;aide :</p></div>
+    <div class="listingblock">
+        <div class="content">
+<pre><tt> Une base de données nommée +catalogue+ permet d'afficher plus aisément les prix
+    et les articles de Sage. Cette base ne sert pas à gérer les prix et les stocks.
+    Elle sert uniquement à pouvoir accéder à ces données sous la forme d'un fichier
+    OpenOffice Calc ou via le language SQL.
+
+    Les données contenues dans cette base ne se mettent pas à jour automatiquement.
+    Il faut donc alimenter cette base régulièrement afin que ses données soient
+    synchrones avec celles de Sage Gescom.
+
+    Pour ce faire, on doit mettre à jour séparément les quatre éléments :
+    articles, nomenclature, tarifs et stocks.
+    Chacune des ces exportations se trouve expliquée dans l'aide correspondante.
+
+    Chacune des quatre exportations de Gescom déclenche automatiquement
+    l'importation correspondante et la mise à jour du catalogue.
+
+    Pour l'utilisation dudit catalogue, on se réferera à l'aide spécifique.</tt></pre>
+        </div>
+    </div>
+    <div class="paragraph"><p>Voici cette aide spécifique :</p></div>
+    <div class="listingblock">
+        <div class="content">
+<pre><tt> La base catalogue ne donne que le prix, le stock et la composition des articles en vente.
+    Une autre base de données existe sur le serveur smf4.emath.fr, elle aussi nommée catalogue.
+    Cette dernière sert au site de vente en ligne, au contenu scientifique des ouvrages, etc.
+
+    On peut récuper et utiliser les données du catalogue de deux façons :
+
+    1. Via un fichier OpenOffice Calc
+    Vous devez injecter les données de la vue catalogue interne et/ou catalogue public
+    dans un fichier openoffice. Pour cela , prenez la table catalogue.catalogue_interne
+    ou catalogue.catalogue_public depuis la source de données Jacinthe.
+
+    2. Via un fichier csv
+    Le fichier SMF_SERVEUR/Data/catalogue.csv est mis à jour automatiquement à partir
+    de la base de données catalogue. Ce fichier contient les références des articles
+    (la nomenclature), la désignation, le prix et le stock.
+    Les données sont séparées par des tabulations. Ce fichier peut-être utilisé pour
+    injecter des données dans un autre composant du système d'information.</tt></pre>
+        </div>
+    </div>
+    <div class="paragraph"><p>Le manageur du catalogue assure les deux fonctions :</p></div>
+    <div class="ulist">
+        <ul>
+            <li>
+                <p>
+                    surveillance de la date des dernières exportations de <tt>Gescom</tt>,
+                </p>
+            </li>
+            <li>
+                <p>
+                    automatisation et surveillance des importation dans la base <tt>catalogue</tt> et exportation du
+                    fichier <tt>csv</tt>.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div class="admonitionblock">
+        <table>
+            <tr>
+                <td class="icon">
+                    <div class="title">Note</div>
+                </td>
+                <td class="content">
+                    <div class="title">Le problème de(s) catalogue(s)</div>
+                    <div class="paragraph"><p>A la lecture de l&#8217;aide ci-dessus, on perçoit bien le problème posé
+                        par la coexistence de
+                        catalogues non synchronisés.</p></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<h2 id="Aspaway">Les communications entre Jacinthe et Sage (Gescom)</h2>
+
+<div class="sectionbody">
+<h3 id="_serveurs_utilisateurs_dossiers">Serveurs, utilisateurs, dossiers</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Cela fait intervenir trois environnements : trois serveurs, trois utilisateurs et trois jeux
+    de dossiers.</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                L&#8217;environnement de Jacinthe
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt> Serveur : smf_gestion.ifp.fr (134.157.87.33), système OSX
+    Utilisateur : gestion
+    Dossier : /home/gestion/SMF_SERVEUR/Transfert, abrégé ci-dessous en TR_J</tt></pre>
+    </div>
+</div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                L&#8217;environnement de Sage (chez Aspaway)
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt> Serveur : 185.7.39.70, système Windows, sous-système Cygwin
+    Utilisateur : SMF_SFTP pour Cygwin
+    Dossier : D:\wrk\Sagei7\transferts (soit /cygdrive/d/wrk/Sagei7/transferts pour Cygwin), abrégé en TR_S</tt></pre>
+    </div>
+</div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                L&#8217;environnement d&#8217;Aspaway (à la SMF)
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="listingblock">
+    <div class="content">
+<pre><tt> Serveur : smf-2.ihp.fr (134.157.87.29), système Debian
+    Utilisateur : Aspaway
+    Dossier : /home/Aspaway/transfert, abrégé ci-dessous en TR_A</tt></pre>
+    </div>
+</div>
+<div class="paragraph"><p>Les transferts se font de 1 vers 2 dans le sens Jacinthe-Sage et de 2 vers 3 dans le sens
+    Sage-Jacinthe.
+    Les trois dossiers TR ont des structures parallèles comme on le verra ci-dessous.</p></div>
+<h3 id="_l_8217_exportation_des_clients_de_jacinthe_vers_sage">L&#8217;exportation des clients de Jacinthe vers
+    Sage</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Elle fait intervenir les sous-dossiers ClientSage des dossiers TR_J, TR_S et TR_A.</p></div>
+<h4 id="_fonctionnement">Fonctionnement</h4>
+
+<div class="paragraph"><p><strong>Première phase : côté Jacinthe</strong></p></div>
+<div class="paragraph"><p>Elle est déclenchée par la commande <em>Exporter les clients</em> du manageur, c&#8217;est-à-dire
+    <em>batman ge</em>
+    (ge pour Gescom export).</p></div>
+<div class="paragraph"><p>Cela se fait en plusieurs étapes :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                production d&#8217;un fichier de nouveaux clients, aux normes de Windows,
+                nommé <strong>ClientSage-&lt;date&gt;.txt, où &lt;date&gt;</strong> est un tampon de la forme
+                YYYYMMDD-HHMMSS,
+                par exemple 20131104-171324 pour un fichier produit le 4 décembre 2013 à 17h 13m 14s,
+            </p>
+        </li>
+        <li>
+            <p>
+                écriture de ce fichier dans le dossier TR_J/ClientSage et d&#8217;une copie dans son sous-dossier
+                Archives,
+            </p>
+        </li>
+        <li>
+            <p>
+                dès lors, le manageur affiche la présence de ce fichier dans la zone ad-hoc, qui devient jaune,
+            </p>
+        </li>
+        <li>
+            <p>
+                dépôt du fichier dans TR_S/ClientSage.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="paragraph"><p><strong>Deuxième phase : côté Sage</strong></p></div>
+<div class="paragraph"><p>Deux actions à effectuer successivement :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                lecture du fichier reçu à l&#8217;aide du format prévu,
+            </p>
+        </li>
+        <li>
+            <p>
+                lancement de l&#8217;utilitaire ???????.bat.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="paragraph"><p>Cet utilitaire fait deux choses : d&#8217;une part retirer le fichier du dossier
+    TR_S/Client_Sage
+    et l&#8217;archiver dans le sous-dossier Archives, d&#8217;autre part le réexpédier vers la SMF
+    dans le dossier TR_A/ClientSage.</p></div>
+<div class="paragraph"><p><strong>Troisième étape, automatique côté Jacinthe</strong></p></div>
+<div class="paragraph"><p>Jacinthe (le manageur) constate le retour du fichier, ce qui atteste qu&#8217;il a été lu.
+    La copie conservée dans TR_J/ClientSage est effacée, le dossier redevient vide et la
+    zone d&#8217;affichage redevient verte.</p></div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="paragraph"><p>(Note pour moi : le nettoyage des fichiers clients est lancé par le manageur,
+                    lorsqu&#8217;il renseigne le nombre de fichiers clients en suspens, donc ne se produit que
+                    lorsque le manageur est en action.)</p></div>
+                <div class="paragraph"><p>(Note pour moi : les fichiers revenus s&#8217;empilent dans TR_A, il faut
+                    aussi les effacer).</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<h4 id="_s_curit">Sécurité</h4>
+
+<div class="paragraph"><p>Ce mécanisme de renvoi du fichier lu vers la SMF a la fonction suivante.</p></div>
+<div class="paragraph"><p>Il se peut que la première phase avorte, parce que la transmission de Jacinthe à Sage n&#8217;a
+    pas lieu,
+    à cause par exemple d&#8217;une panne de réseau ou de l&#8217;indisponibilité du serveur de Sage.
+    La situation est alors désagréable, car le fichier a été produit, de sorte que les clients
+    qu&#8217;il contient ont été marqués comme <em>anciens</em> dans la base de Jacinthe.
+    Si on relance l&#8217;opération d&#8217;exportation, Jacinthe dira qu&#8217;il n&#8217;y a pas de nouveaux clients.
+</p></div>
+<div class="paragraph"><p>Le fait que le dossier TR_J/ClientSage est vide certifie que la transmission a bien eu lieu
+    (et aussi d&#8217;ailleurs que la lecture côté Sage a eu lieu).
+    Si le dossier n&#8217;est pas vide, il faut donc, non pas recommencer l&#8217;exportation, comme on l&#8217;a vu,
+    mais envoyer à nouveau son contenu.
+    Cela se fait par la commande <em>batman gr</em> (<strong>gr</strong> pour Gescom Ré-envoyer)</p></div>
+<div class="paragraph"><p>Nota : si deux fichiers sont présents dans le dossier, cela signifie que l&#8217;exportation
+    précédente a raté,
+    ou bien que le fichier envoyé la fois précédente n&#8217;a pas été lu, et la zone devient rouge.</p></div>
+<h3 id="_l_8217_importation_des_ventes_dans_jacinthe_depuis_sage">L&#8217;importation des ventes dans Jacinthe depuis
+    Sage.</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Elle fait intervenir les sous-dossiers DocVente des dossiers TR_J et TR_A.</p></div>
+<h4 id="_fonctionnement_2">Fonctionnement</h4>
+
+<div class="paragraph"><p><strong>Première phase : côté Sage</strong></p></div>
+<div class="paragraph"><p>Là aussi, deux actions à effectuer successivement :</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                écriture du fichier des ventes à l&#8217;aide du format prévu dans le dossier TR_S/DocVente,
+                sous le nom Ventes.slk
+            </p>
+        </li>
+        <li>
+            <p>
+                lancement de l&#8217;utilitaire ??????.bat, qui ????envoie/copie???? ce fichier dans le dossier
+                TR_A/DocVente
+                à la SMF.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="paragraph"><p><strong>Deuxième phase, automatique côté Jacinthe</strong></p></div>
+<div class="paragraph"><p>Jacinthe (le manageur) constate l&#8217;arrivée du fichier, ou plutôt constate que le fichier
+    Ventes.slk est nouveau. En effet, il y a toujours un fichier Ventes.slk dans TR_S/DocVente
+    et dans TR_A/DocVente, chaque écriture ou transfert écrasant le fichier précédent.
+    L'âge du fichier Ventes.slk de TR_A/DocVente, qui est affiché dans la zone ad-hoc, devient 0 et la zone devient (ou
+    reste) verte.</p></div>
+<div class="paragraph"><p>Démarre alors une longue suite d&#8217;opérations.</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                Le fichier Ventes.slk est copié dans TR_J/DocVente depuis TR_A/DocVente, écrasant le précédent.
+            </p>
+        </li>
+        <li>
+            <p>
+                Il est transformé, de Windows à utf-8 et de SYLK à CSV. Le fichier obtenu, Ventes.csv,
+                est aussi rangé dans TR_J/DocVente, écrasant le précédent.
+            </p>
+        </li>
+        <li>
+            <p>
+                Trois fichiers CSV en sont extraits, correspondant respectivement aux adhésions
+                et abonnements, aux dons, et aux monographies.
+            </p>
+        </li>
+        <li>
+            <p>
+                Ces fichiers sont datés et archivés dans le sous-dossier TR_J/DocVente/Archives.
+            </p>
+        </li>
+        <li>
+            <p>
+                Ces trois fichiers sont lus par des procédures <tt>sql</tt> et chaque ligne donne naissance
+                à un enregistrement de la table <em>sage_document</em> de Jacinthe DB.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="paragraph"><p>Jusque-là, en dehors de données inintéressantes, la chose est essentiellement bijective :
+    chaque ligne d&#8217;une écriture de Sage est reflétée dans un <em>sage_document</em>.</p></div>
+<div class="ulist">
+    <ul>
+        <li>
+            <p>
+                Ces <em>sage_document</em> sont alors injectés dans les tables principales de Jacinthe
+                (abonnements, adhésions variées, etc.). Les documents erronés ne sont pas injectés
+                et marqués comme non importés.
+            </p>
+        </li>
+        <li>
+            <p>
+                Une liste des anomalies est produite et enregistrée dans un fichier.
+                Leur nombre est affiché par le manageur.
+            </p>
+        </li>
+        <li>
+            <p>
+                La lecture de ce fichier permet d&#8217;identifier les opérations de Sage à l&#8217;origine des
+                anomalies.
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="quoteblock">
+    <div class="title">Notes importantes</div>
+    <div class="quoteblock-content">
+        <div class="ulist">
+            <ul>
+                <li>
+                    <p>
+                        Les anomalies principales résultent des contraintes internes de Jacinthe.
+                        Par exemple, Jacinthe interdit d&#8217;effacer un client dont les factures ne sont pas soldées,
+                        mais cela bloque l&#8217;introduction d&#8217;une facture lorsque le client est inconnu de
+                        Jacinthe ;
+                        la chose se règlera d&#8217;elle-même lorsque le client aura été créé dans Jacinthe.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Il est &#171;&#160;normal&#160;&#187; que l&#8217;importation de la vente d&#8217;une cotisation
+                        à un tiers se traduise par
+                        le marquage pour exportation des clients correspondants.
+                        Ce mécanisme de Jacinthe assure en effet que ces tiers bénéficieront
+                        bien du tarif réservé aux membres.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="quoteblock-attribution">
+    </div>
+</div>
+<h4 id="_s_curit_2">Sécurité</h4>
+
+<div class="paragraph"><p>Contrairement au cas des clients, comme chaque fichier envoyé contient toutes les opérations,
+    il suffit de recommencer en cas de non-réussite du transfert.</p></div>
+<h3 id="_l_8217_importation_des_quatre_fichiers_de_production_du_catalogue">L&#8217;importation des quatre fichiers de
+    production du catalogue</h3>
+
+<div style="clear:left"></div>
+<div class="paragraph"><p>Le mécanisme est identique au précédent.</p></div>
+<div class="admonitionblock">
+    <table>
+        <tr>
+            <td class="icon">
+                <div class="title">Note</div>
+            </td>
+            <td class="content">
+                <div class="title">Archivage</div>
+                <div class="paragraph"><p>La situation actuelle en terme d&#8217;archivage est incohérente.</p></div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p>
+                                On archive les dumps journaliers de la base, ce qui donne des fichiers nombreux (365 par
+                                an) et énormes.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                On archive les fichiers clients transmis, ce qui est "raisonnable" : ils sont petits et
+                                "nouveaux".
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                On archive les fichiers d&#8217;importations spécialisés d&#8217;importation de vente,
+                                qui sont gros et se contiennent les uns les autres.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Du côté des transmissions avec Drupal et smf-4, aucun archivage ni dans un sens ni dans
+                                l&#8217;autre.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paragraph"><p>Je me suis contenté de reproduire ce que Kenji avait fait.
+                    Kenji, interrogé, m&#8217;a dit qu&#8217;il avait créé la plupart de ces archivages lors de
+                    difficultés
+                    de mise au point des programmes. Il nous faut définir les besoins et les stratégies de
+                    rétention.</p></div>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+</div>
+<div id="footnotes">
+    <hr/>
+</div>
+<div id="footer">
+    <div id="footer-text">
+        Version 1.2<br/>
+        Last updated 2014-01-04 17:37:01 Paris, Madrid (heure d’été)
+    </div>
+</div>
+</body>
+</html>

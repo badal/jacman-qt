@@ -1,0 +1,9 @@
+Exporter 'Nomenclatures' dans Sage
+
+-  Aller dans Fichier > Exporter > Format Sage
+-  Choisir le format SMF_SERVEUR/SageModelsExport/Catalogue/Nomenclatures
+-  Cliquez sur le bouton exporter
+-  Enregistrer au FORMAT SYLK (!!) dans le fichier
+     transferts/Catalogue/Nomenclatures/Nomenclatures.slk
+     (Écrasez le fichier existant)
+-  Cliquez sur le fichier batch pour envoyer
