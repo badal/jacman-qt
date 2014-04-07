@@ -4,7 +4,7 @@
   Jacinthe management tools
 
 ## Version
-  1.9
+  2.0
 
 ## Synopsis
   Script tools for Jacinthe DB management. Five executables :

@@ -28,7 +28,7 @@ end
 
 desc "build Manifest"
 task :manifest do
-  system ' mast lib spec HISTORY.md LICENSE Rakefile README.rb > MANIFEST '
+  system ' mast lib spec HISTORY.md LICENSE Rakefile README.md > MANIFEST '
 end
 
 YARD::Rake::YardocTask.new do |t|
