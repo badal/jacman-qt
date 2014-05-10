@@ -9,7 +9,7 @@
 require_relative('version.rb')
 
 # for parallel gem development
-require File.expand_path('core.rb', '../../jacman-core/lib/jacman')
+# require File.expand_path('core.rb', '../../jacman-core/lib/jacman')
 
 # when using gem
-# require 'jacman-core'
+require 'jacman/core'
