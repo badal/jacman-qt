@@ -34,14 +34,12 @@ module JacintheManagement
         @headers = @list.map { |call_name| Core::Command.send(call_name).title }
         build_first_line(@headers)
         build_first_column(['Résultat de l\'exécution', 'Rapport'])
-        # noinspection RubyArgCount
-        @watchers = @list.map { |call_name| Core::CommandWatcher.new(call_name) }
         build_values
       end
 
       # Build the items in the table
       def build_values
-        @elements = @watchers.map { |watcher| watcher.check_command(24) }
+        @elements = Core::CommandWatcher.report(@list)
         @elements.each_with_index do |(level, _, age), col|
           build_column_for(col + 1, age, level)
         end
