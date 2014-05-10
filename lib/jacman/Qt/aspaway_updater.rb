@@ -19,7 +19,7 @@ module JacintheManagement
       def initialize(source_file, call_name)
         @importer = Core::AspawayImporter.new(source_file)
         @source_age = 999
-        @stamp = File.join(CRON_DIR, "stdout_#{call_name}.txt")
+        @stamp = Core::Command.send(call_name).stdout_file
         @call_name = call_name
       end
 

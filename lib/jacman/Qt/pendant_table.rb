@@ -56,7 +56,7 @@ module JacintheManagement
       # Actions corresponding to the second row
       ACTION_FOR = [nil,
                     -> { Core::Sales.show_remaining_sales },
-                    -> { Core::Clients::show_client_files },
+                    -> { Core::Clients.show_client_files },
                     nil,
                     nil,
                     -> { Core::Electronic.show_invalid_ranges },
