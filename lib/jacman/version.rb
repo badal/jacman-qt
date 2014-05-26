@@ -7,7 +7,8 @@
 # (c) Michel Demazure & Kenji Lefevre
 
 module JacintheManagement
-  MAJOR = 2
+
+MAJOR = 2
   MINOR = 0
   TINY = 0
 

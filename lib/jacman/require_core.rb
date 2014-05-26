@@ -4,12 +4,13 @@
 # File: require_core.rb
 # Created: 20/12/13
 #
-# (c) Michel Demazure & Kenji Lefevre
+# (c) Michel Demazure
 
 require_relative('version.rb')
 
-# for parallel gem development
-# require File.expand_path('core.rb', '../../jacman-core/lib/jacman')
+module JacintheManagement
+# copyright
+  COPYRIGHT = "\u00A9 Michel Demazure"
+end
 
-# when using gem
 require 'jacman/core'
