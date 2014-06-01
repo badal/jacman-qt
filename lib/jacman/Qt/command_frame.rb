@@ -16,7 +16,7 @@ module JacintheManagement
       # @return[CommandFrame] frame for this command
       # @param[String] cmd call_name of command
       def self.with(cmd)
-        new(Core::Command.send(cmd))
+        new(Core::Command.fetch(cmd))
       end
 
       # @param[String] the received text
