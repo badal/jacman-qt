@@ -86,12 +86,11 @@ module JacintheManagement
       def report
         res = @frames.map(&:received)
         text = res.select { |line| line && line != "\n" }.first
-        if text
-          # WARNING: here logging
-          JacintheManagement.log(text)
-          @report.append(text)
-          Qt::CoreApplication.process_events
-        end
+        return unless text
+        # WARNING: here logging
+        JacintheManagement.log(text)
+        @report.append(text)
+        Qt::CoreApplication.process_events
       end
 
       # enabling/disabling buttons

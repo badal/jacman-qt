@@ -9,7 +9,7 @@
 require_relative('version.rb')
 
 module JacintheManagement
-# copyright
+  # copyright
   COPYRIGHT = "\u00A9 Michel Demazure"
 end
 

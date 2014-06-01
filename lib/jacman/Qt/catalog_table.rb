@@ -36,10 +36,9 @@ module JacintheManagement
       def self.update_catalog_if_needed
         needed = false
         CATALOG_IMPORTER_LIST.each do |importer|
-          if importer.need_update
-            importer.update
-            needed = true
-          end
+          next unless importer.need_update
+          importer.update
+          needed = true
         end
         Command.ce.cron_execute if needed
       end
