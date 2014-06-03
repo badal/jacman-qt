@@ -6,15 +6,15 @@ require 'rake/testtask'
 require_relative 'lib/jacman/version.rb'
 
 spec = Gem::Specification.new do |s|
-  s.name = 'jacman'
+  s.name = 'jacman_qt'
   s.version = JacintheManagement::VERSION
   s.has_rdoc = true
   s.extra_rdoc_files = %w(README.md LICENSE)
   s.summary = 'Script tools for Jacinthe DB management'
   s.description = 'Script tools for Jacinthe DB management'
-  s.author = 'Michel Demazure, Kenji Lefevre'
+  s.author = 'Michel Demazure'
   s.email = 'michel@demazure.com'
-  s.executables = %w(batman.sh catalog_manager.sh cronman.sh jacdev.sh manager.sh)
+  s.executables = %w(catalog_manager.sh manager.sh)
   s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('{bin,lib,spec}/**/*')
   s.require_path = 'lib'
   s.bindir = 'bin'
