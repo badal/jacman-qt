@@ -14,3 +14,5 @@ module JacintheManagement
 end
 
 require 'jacman/core'
+
+# require_relative '../../../jacman-core-mock/lib/jacman/core.rb'

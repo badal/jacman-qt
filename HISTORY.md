@@ -1,3 +1,8 @@
 # Jacinthe Management, a.k.a. JacMan
+
+## [v2.0.1]
+* top executables renamed with qt_ prefix
+
 ## [v2.0.0]
-* jacman-qt / jacman-core
+* two parts jacman-qt / jacman-core
+* jacman-core is now a gem

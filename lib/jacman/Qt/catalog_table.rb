@@ -40,7 +40,7 @@ module JacintheManagement
           importer.update
           needed = true
         end
-        Command.ce.cron_execute if needed
+        Core::Command.ce.cron_execute if needed
       end
 
       # Build a new instance

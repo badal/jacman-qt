@@ -4,13 +4,13 @@
   GUI part of Jacinthe management tools
 
 ## Version
-  2.0
+  2.0.1
 
 ## Synopsis
   GUI tools for Jacinthe DB management. Two executables :
 
-  * manager : GUI manager for plain users
-  * catalog_manager : GUI manager for building catalog
+  * qt_manager : GUI manager for plain users
+  * qt_catalog_manager : GUI manager for building catalog
 
 ## Usage
   Run one of the executables
