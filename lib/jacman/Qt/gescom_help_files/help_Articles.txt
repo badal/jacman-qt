@@ -1,9 +1,0 @@
-Exporter 'Articles' dans Sage
-
--  Aller dans Fichier > Exporter > Format Sage
--  Choisir le format SMF_SERVEUR/SageModelsExport/Catalogue/Articles
--  Cliquez sur le bouton exporter
--  Enregistrer au FORMAT SYLK (!!) dans le fichier
-     ../transferts/Catalogue/Articles/Articles.slk
-     (Écrasez le fichier existant)
--  Cliquez sur le fichier batch pour envoyer

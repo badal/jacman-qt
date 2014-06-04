@@ -3,7 +3,7 @@ require 'yard'
 require 'yard/rake/yardoc_task'
 require 'rake/testtask'
 
-require_relative 'lib/jacman/version.rb'
+require_relative 'lib/jacman/qt/version.rb'
 
 spec = Gem::Specification.new do |s|
   s.name = 'jacman_qt'
@@ -14,7 +14,8 @@ spec = Gem::Specification.new do |s|
   s.description = 'Script tools for Jacinthe DB management'
   s.author = 'Michel Demazure'
   s.email = 'michel@demazure.com'
-  s.executables = %w(catalog_manager.sh manager.sh)
+  s.homepage = 'http://github.com/badal/jacman-qt'
+  s.license = 'MIT'
   s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('{bin,lib,spec}/**/*')
   s.require_path = 'lib'
   s.bindir = 'bin'
@@ -23,7 +24,7 @@ end
 Gem::PackageTask.new(spec) do |p|
   p.package_dir = ENV['LOCAL_GEMS']
   p.gem_spec = spec
-  p.need_tar = true
+  p.need_tar = false
   # p.need_zip = true
 end
 

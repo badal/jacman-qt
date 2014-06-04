@@ -1,4 +1,6 @@
 # Jacinthe Management, a.k.a. JacMan
+## [v2.1.0]
+* moved all directories
 
 ## [v2.0.1]
 * top executables renamed with qt_ prefix
