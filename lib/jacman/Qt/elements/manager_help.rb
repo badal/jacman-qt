@@ -96,7 +96,7 @@ END_CMD_HELP
 
       # SLOT : show help MessageBox for manager
       def help
-        #  Qt::MessageBox.information(self, 'le Manageur de Jacinthe', MANAGER_HELP)
+        #  qt::MessageBox.information(self, 'le Manageur de Jacinthe', MANAGER_HELP)
         Core::Utils.open_file(HELP_FILE)
       end
     end

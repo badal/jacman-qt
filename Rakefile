@@ -6,7 +6,7 @@ require 'rake/testtask'
 require_relative 'lib/jacman/qt/version.rb'
 
 spec = Gem::Specification.new do |s|
-  s.name = 'jacman_qt'
+  s.name = 'jacman-qt'
   s.version = JacintheManagement::VERSION
   s.has_rdoc = true
   s.extra_rdoc_files = %w(README.md LICENSE)
@@ -14,9 +14,12 @@ spec = Gem::Specification.new do |s|
   s.description = 'Script tools for Jacinthe DB management'
   s.author = 'Michel Demazure'
   s.email = 'michel@demazure.com'
+  s.add_dependency 'qtbindings'
+  s.add_dependency 'jacman-core'
   s.homepage = 'http://github.com/badal/jacman-qt'
   s.license = 'MIT'
   s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('{bin,lib,spec}/**/*')
+  s.executables = %w(manager catalog_manager)
   s.require_path = 'lib'
   s.bindir = 'bin'
 end
@@ -30,7 +33,7 @@ end
 
 desc "build Manifest"
 task :manifest do
-  system ' mast lib spec HISTORY.md LICENSE Rakefile README.md > MANIFEST '
+  system ' mast lib bin spec HISTORY.md LICENSE Rakefile README.md > MANIFEST '
 end
 
 YARD::Rake::YardocTask.new do |t|

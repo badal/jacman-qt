@@ -1,4 +1,5 @@
-#!mast lib spec HISTORY.md LICENSE Rakefile README.md
+#!mast lib bin spec HISTORY.md LICENSE Rakefile README.md
+lib/jacman/qt/catalog_manager_qt.rb
 lib/jacman/qt/elements/aspaway_updater.rb
 lib/jacman/qt/elements/catalog_central_widget.rb
 lib/jacman/qt/elements/catalog_manager_elements.rb
@@ -23,9 +24,10 @@ lib/jacman/qt/elements/pendant_table.rb
 lib/jacman/qt/elements/stream.rb
 lib/jacman/qt/elements/table.rb
 lib/jacman/qt/elements/watcher_table.rb
-lib/jacman/qt/qt_catalog_manager.rb
-lib/jacman/qt/qt_manager.rb
+lib/jacman/qt/manager_qt.rb
 lib/jacman/qt/version.rb
+bin/catalog_manager
+bin/manager
 HISTORY.md
 LICENSE
 Rakefile

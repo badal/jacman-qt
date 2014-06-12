@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+# File: catalog_manager
+# Created: 16/06/14
+#
+# (c) Michel Demazure <michel@demazure.com>
+
+require('jacman/core')
+require('jacman/qt/catalog_manager_qt')

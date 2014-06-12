@@ -24,7 +24,7 @@ module JacintheManagement
 
       # Build the frame shape
       def set_shape
-        # set_size_policy(Qt::SizePolicy::Fixed, Qt::SizePolicy::Fixed)
+        # set_size_policy(qt::SizePolicy::Fixed, qt::SizePolicy::Fixed)
         set_minimum_size(160, 90)
         self.frame_shape = Qt::Frame::StyledPanel
         self.frame_shadow = Qt::Frame::Sunken

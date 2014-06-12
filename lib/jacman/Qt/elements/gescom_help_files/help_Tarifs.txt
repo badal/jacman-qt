@@ -1,0 +1,10 @@
+Exporter 'Tarifs' dans Sage
+
+-  Aller dans Fichier > Exporter > Format Paramétrables
+-  Choisir le format SMF_SERVEUR/SageFormatParam/Catalogue/Tarifs
+-  Enregistrer dans le fichier
+     transferts/Catalogue/Tarifs/Tarifs.csv
+     (Écrasez le fichier existant)
+-  Références articles : tous (vous pouvez laisser tous les champs vide).
+-  Cliquer sur OK
+-  Cliquez sur le fichier batch pour envoyer
