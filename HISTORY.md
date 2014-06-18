@@ -1,4 +1,7 @@
 # Jacinthe Management, a.k.a. JacMan
+## [v2.1.1]
+* added bin and executables in gemspec
+
 ## [v2.1.0]
 * moved all directories
 

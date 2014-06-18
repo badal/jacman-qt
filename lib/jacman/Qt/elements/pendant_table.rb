@@ -18,11 +18,12 @@ module JacintheManagement
       Qt::CoreApplication.process_events
     end
 
-    WAITING_TEXT = [
-        'Importation des Ventes en cours',
-        'ATTENDRE',
-        'Ne pas fermer la fenêtre'
-    ].join("\n")
+    WAITING_TEXT =
+        [
+            'Importation des Ventes en cours',
+            'ATTENDRE',
+            'Ne pas fermer la fenêtre'
+        ].join("\n")
 
     # showing a message box while a task is processed
     # @param [Qt::Widget] parent parent widget
@@ -41,27 +42,30 @@ module JacintheManagement
     # Table widget for showing pendant actions
     class PendantTable < Table
       # Headers for the table
-      HEADERS = [
-          'Fichier ventes GESCOM',
-          'Ventes non importées',
-          'Fichiers clients non lus',
-          'Clients à exporter',
-          'Notifications à faire',
-          'Plages non valides',
-          'E-abonnés sans mail'
-      ]
+      HEADERS =
+          [
+              'Fichier ventes GESCOM',
+              'Ventes non importées',
+              'Fichiers clients non lus',
+              'Clients à exporter',
+              'Notifications à faire',
+              'Plages non valides',
+              'E-abonnés sans mail'
+          ]
       # whether column may have button
       BUTTONS = [true, true, false, false, true, true]
 
       # Actions corresponding to the second row
-      ACTION_FOR = [nil,
-                    -> { Core::Sales.show_remaining_sales },
-                    -> { Core::Clients.show_client_files },
-                    nil,
-                    nil,
-                    -> { Core::Electronic.show_invalid_ranges },
-                    -> { Core::Notification.show_tiers_without_mail }
-      ]
+      ACTION_FOR =
+          [
+              nil,
+              -> { Core::Sales.show_remaining_sales },
+              -> { Core::Clients.show_client_files },
+              nil,
+              nil,
+              -> { Core::Electronic.show_invalid_ranges },
+              -> { Core::Notification.show_tiers_without_mail }
+          ]
 
       # Build a new instance
       def initialize

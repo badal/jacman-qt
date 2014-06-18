@@ -9,16 +9,11 @@
 module JacintheManagement
   MAJOR = 2
   MINOR = 1
-  TINY = 0
+  TINY = 1
 
   VERSION = [MAJOR, MINOR, TINY].join('.').freeze
 
   COPYRIGHT = "\u00A9 Michel Demazure"
-
 end
 
-if __FILE__ == $PROGRAM_NAME
-
-  puts JacintheManagement::VERSION
-
-end
+puts JacintheManagement::VERSION if __FILE__ == $PROGRAM_NAME

@@ -6,8 +6,6 @@
 #
 # (c) Michel Demazure <michel@demazure.com>
 
-require('jacman/core')
-
 require_relative('version.rb')
 require_relative('elements/manager_help.rb')
 require_relative('elements/log.rb')
