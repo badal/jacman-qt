@@ -1,18 +1,12 @@
 /.idea
 /.yardoc
 
-/bat
 /doc
 /metrics
 /stock
 /tmp
 /turbulence
-
 .rubocop.yml
-Gemfile
 Gemfile.lock
 metrics.rake
-
 /lib/my_config.rb
-/spec/test_files/*prod.*
-/sandi_meter
