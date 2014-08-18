@@ -1,4 +1,4 @@
-gem 'jacman-core', github: 'badal/jacman-core', :branch => 'master'
+gem 'jacman-core', git: 'C:/Users/Michel/Documents/Share/dev_ruby/jacman-core', branch: 'master'
 
 source 'http://rubygems.org'
 
