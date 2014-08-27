@@ -1,4 +1,8 @@
 # Jacinthe Management, a.k.a. JacMan
+
+## [v2.1.2]
+* added force_gi! command
+
 ## [v2.1.1]
 * added bin and executables in gemspec
 

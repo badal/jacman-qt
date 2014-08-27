@@ -16,7 +16,7 @@ module JacintheManagement
       ABOUT = ["Version #{JacintheManagement::VERSION}", 'S.M.F. 2011-2013',
                "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
 
-      slots :about, :help, :update_values
+      slots :about, :help, :update_values, :gi!
 
       # tests whether window is active or minimized
       # @param [Qt::Object] obj origin of event
@@ -46,10 +46,13 @@ module JacintheManagement
       # @return [Qt::StatusBar] the completed and connected status bar
       def build_status_bar
         status = statusBar
+        force_gi = Qt::PushButton.new('Force gi !')
         about = Qt::PushButton.new('A propos...')
         help = Qt::PushButton.new(Icons.icon('standardbutton-help'), 'Aide')
+        status.addPermanentWidget(force_gi)
         status.addPermanentWidget(help)
         status.addPermanentWidget(about)
+        status.connect(force_gi, SIGNAL(:clicked), self, SLOT(:"gi!"))
         status.connect(about, SIGNAL(:clicked), self, SLOT(:about))
         status.connect(help, SIGNAL(:clicked), self, SLOT(:help))
         status
@@ -63,6 +66,13 @@ module JacintheManagement
         application.exec
       rescue => error
         JacintheManagement.err(error)
+      end
+
+      # Slot : force gi command
+      def gi!
+        GuiQt.suspending_user_events do
+          GuiQt.under_warning(self) { Core::Command.cron_run('gi') }
+        end
       end
 
       # Slot : open the about dialog
