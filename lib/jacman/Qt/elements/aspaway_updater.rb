@@ -18,8 +18,8 @@ module JacintheManagement
       # @param [String] call_name call name of importation method
       def initialize(source_file, call_name)
         @importer = Core::AspawayImporter.new(source_file)
-        @source_age = 999
-        @stamp = Core::Command.send(call_name).stdout_file
+        @source_age = nil
+        @stamp = File.join(CRON_DIR, "stdout_#{call_name}.txt")
         @call_name = call_name
       end
 
