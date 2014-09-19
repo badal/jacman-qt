@@ -5,30 +5,10 @@ require 'rake/testtask'
 
 require_relative 'lib/jacman/qt/version.rb'
 
-spec = Gem::Specification.new do |s|
-  s.name = 'jacman-qt'
-  s.version = JacintheManagement::VERSION
-  s.has_rdoc = true
-  s.extra_rdoc_files = %w(README.md LICENSE)
-  s.summary = 'Script tools for Jacinthe DB management'
-  s.description = 'Script tools for Jacinthe DB management'
-  s.author = 'Michel Demazure'
-  s.email = 'michel@demazure.com'
-  s.add_dependency 'qtbindings'
-  s.add_dependency 'jacman-core'
-  s.homepage = 'http://github.com/badal/jacman-qt'
-  s.license = 'MIT'
-  s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('{bin,lib,spec}/**/*')
-  s.executables = %w(manager catalog_manager)
-  s.require_path = 'lib'
-  s.bindir = 'bin'
-end
-
-Gem::PackageTask.new(spec) do |p|
-  p.package_dir = ENV['LOCAL_GEMS']
-  p.gem_spec = spec
-  p.need_tar = false
-  # p.need_zip = true
+desc 'build gem file'
+task :build_gem do
+  system 'gem build jacman-qt.gemspec'
+  FileUtils.cp(Dir.glob('*.gem'), ENV['LOCAL_GEMS'])
 end
 
 desc "build Manifest"
@@ -40,7 +20,6 @@ YARD::Rake::YardocTask.new do |t|
   t.options += ['--title', "Jacinthe Management #{JacintheManagement::VERSION} Documentation"]
   t.options += %w(--files LICENSE)
   t.options += ['--files', 'HISTORY.md']
-  t.options += ['--files', 'TODO.md']
   t.options += ['--files', 'MANIFEST']
   t.options += ['--no-private']
 end

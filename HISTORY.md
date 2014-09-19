@@ -1,4 +1,6 @@
 # Jacinthe Management, a.k.a. JacMan
+## [v2.1.4]
+* 'pendant' -> 'pending'
 
 ## [v2.1.2]
 * added force_gi! command

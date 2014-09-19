@@ -20,7 +20,7 @@ lib/jacman/qt/elements/manager_central_widget.rb
 lib/jacman/qt/elements/manager_elements.rb
 lib/jacman/qt/elements/manager_help.rb
 lib/jacman/qt/elements/manager_main.rb
-lib/jacman/qt/elements/pendant_table.rb
+lib/jacman/qt/elements/pending_table.rb
 lib/jacman/qt/elements/stream.rb
 lib/jacman/qt/elements/table.rb
 lib/jacman/qt/elements/watcher_table.rb

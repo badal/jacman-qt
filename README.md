@@ -4,7 +4,7 @@
   GUI part of Jacinthe management tools
 
 ## Version
-  2.0.1
+  2.1.4
 
 ## Synopsis
   GUI tools for Jacinthe DB management. Two executables :
