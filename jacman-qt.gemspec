@@ -18,9 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jacman-core'
   s.homepage = 'http://github.com/badal/jacman-qt'
   s.license = 'MIT'
-  s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('{bin,lib,spec}/**/*')
-  s.executables = %w(manager catalog_manager)
+  s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('lib,spec}/**/*')
   s.require_path = 'lib'
-  s.bindir = 'bin'
 end
 

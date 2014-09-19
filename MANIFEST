@@ -26,8 +26,6 @@ lib/jacman/qt/elements/table.rb
 lib/jacman/qt/elements/watcher_table.rb
 lib/jacman/qt/manager_qt.rb
 lib/jacman/qt/version.rb
-bin/catalog_manager
-bin/manager
 HISTORY.md
 LICENSE
 Rakefile
