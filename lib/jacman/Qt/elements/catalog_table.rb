@@ -14,10 +14,10 @@ module JacintheManagement
       # List of parameters of importers : [directory, source file, call_name]
       PARAMETER_LIST =
           [
-              %w(Articles Articles.slk ca),
-              %w(Nomenclatures Nomenclatures.slk cn),
-              %w(Stock Stock.txt cs),
-              %w(Tarifs Tarifs.csv ct)
+            %w(Articles Articles.slk ca),
+            %w(Nomenclatures Nomenclatures.slk cn),
+            %w(Stock Stock.txt cs),
+            %w(Tarifs Tarifs.csv ct)
           ]
       # list of importers
       CATALOG_IMPORTER_LIST = PARAMETER_LIST.map do |sub_dir, filename, cmd|

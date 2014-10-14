@@ -28,8 +28,8 @@ module JacintheManagement
         add_line
 
         add_line_header_with_help('Operations de gestion : surveillance', :help_pending)
-        @pendant_table = PendantTable.new
-        add_widget(@pendant_table)
+        @pending_table = PendingTable.new
+        add_widget(@pending_table)
         add_line
 
         add_line_header_with_help('Operations de gestion : commandes', :help_cmd)
@@ -96,8 +96,8 @@ module JacintheManagement
       # enabling/disabling buttons
       def update_values
         super
-        @frames[2].enabled = @pendant_table.clients?
-        @frames[5].enabled = @pendant_table.notifications?
+        @frames[2].enabled = @pending_table.clients?
+        @frames[5].enabled = @pending_table.notifications?
       end
     end
   end

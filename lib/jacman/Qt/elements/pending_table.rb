@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-# File: pendant_table.rb
+# File: pending_table.rb
 # Created:  24/09/13
 #
 # (c) Michel Demazure <michel@demazure.com>
@@ -40,7 +40,7 @@ module JacintheManagement
     end
 
     # Table widget for showing pendant actions
-    class PendantTable < Table
+    class PendingTable < Table
       # Headers for the table
       HEADERS =
           [
