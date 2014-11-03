@@ -11,7 +11,7 @@ task :build_gem do
   FileUtils.cp(Dir.glob('*.gem'), ENV['LOCAL_GEMS'])
 end
 
-desc "build Manifest"
+desc 'build Manifest'
 task :manifest do
   system ' mast lib bin spec HISTORY.md LICENSE Rakefile README.md > MANIFEST '
 end
@@ -24,7 +24,7 @@ YARD::Rake::YardocTask.new do |t|
   t.options += ['--no-private']
 end
 
-desc "yard undocumented"
+desc 'yard undocumented'
 task :undoc do
   system 'yard stats --list-undoc'
 end

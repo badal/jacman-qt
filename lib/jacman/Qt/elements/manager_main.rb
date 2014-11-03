@@ -13,7 +13,11 @@ module JacintheManagement
     # Manager main window
     class ManagerMain < Qt::MainWindow
       # "About" message
-      ABOUT = ["Version #{JacintheManagement::VERSION}", 'S.M.F. 2011-2013',
+      ABOUT = ["Versions jacman-qt : #{JacintheManagement::VERSION}",
+               "   j2r-jaccess : #{J2R::Jaccess::VERSION}",
+               "   j2r-core : #{J2R::Core::VERSION}",
+               "   jacman-core : #{JacintheManagement::Core::VERSION}",
+               'S.M.F. 2011-2014',
                "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
 
       slots :about, :help, :update_values, :gi!

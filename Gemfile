@@ -7,4 +7,4 @@ gem 'yard'
 gem 'minitest'
 gem 'minitest-reporters'
 
-gem 'qtbindings' #, '4.8.3'
+gem 'qtbindings' # , '4.8.3'
