@@ -128,14 +128,14 @@ module JacintheManagement
       def build_column(col, value, button, limit = 999_999)
         color = TableItem.color_for_value(value.to_i, 1, limit)
         set_item(1, col, TableItem.new(value.to_s, color))
-        set_item(2, col, TableItem.new('Voir le fichier', '#EEE')) if value > 0 && button
+        set_item(2, col, TableItem.new('Voir le fichier', '#EEE')) if value.to_s != '0' && button
       end
 
       # Slot : show the corresponding directory/file when the item is clicked
       # @param [Integer] row row index
       # @param [Integer] col column index
       def clicked(row, col)
-        return unless row == 2 && BUTTONS[col - 1] && @values[col - 1] > 0
+        return unless row == 2 && BUTTONS[col - 1] && @values[col - 1].to_s != '0'
         ACTION_FOR[col].call
       end
     end
