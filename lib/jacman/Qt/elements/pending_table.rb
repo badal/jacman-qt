@@ -20,9 +20,9 @@ module JacintheManagement
 
     WAITING_TEXT =
         [
-          'Importation des Ventes en cours',
-          'ATTENDRE',
-          'Ne pas fermer la fenêtre'
+            'Importation des Ventes en cours',
+            'ATTENDRE',
+            'Ne pas fermer la fenêtre'
         ].join("\n")
 
     # showing a message box while a task is processed
@@ -41,38 +41,43 @@ module JacintheManagement
 
     # Table widget for showing pendant actions
     class PendingTable < Table
+      # First column
+      SUBTITLES =
+          [
+              'Opérations',
+              'Etat',
+              'Actions'
+          ]
       # Headers for the table
       HEADERS =
           [
-            'Fichier ventes GESCOM',
-            'Ventes non importées',
-            'Fichiers clients non lus',
-            'Clients à exporter',
-            'Notifications à faire',
-            'Plages non valides',
-            'E-abonnés sans mail'
+              'Fichier ventes GESCOM',
+              'Ventes non importées',
+              'Fichiers clients non lus',
+              'Clients à exporter'
           ]
+
       # whether column may have button
-      BUTTONS = [true, true, false, false, true, true]
+      BUTTONS = [false, true, true, false, false]
 
       # Actions corresponding to the second row
       ACTION_FOR =
           [
-            nil,
-            -> { Core::Sales.show_remaining_sales },
-            -> { Core::Clients.show_client_files },
-            nil,
-            nil,
-            -> { Core::Electronic.show_invalid_ranges },
-            -> { Core::Notification.show_tiers_without_mail }
+              nil, # -> { gi! },
+              -> { Core::Sales.show_remaining_sales },
+              -> { Core::Clients.show_client_files },
+              nil,
           ]
 
       # Build a new instance
       def initialize
-        super(3, 7)
+        super(3, 5)
         @count = 0
+        SUBTITLES.each_with_index do |subtitle, indx|
+          set_item(indx, 0, TableItem.new(subtitle))
+        end
         HEADERS.each_with_index do |title, indx|
-          set_item(0, indx, TableItem.new(title))
+          set_item(0, indx + 1, TableItem.new(title))
         end
         @importer = AspawayUpdater.new('DocVente/Ventes.slk', 'gi')
         build_values
@@ -81,12 +86,12 @@ module JacintheManagement
       # Build the values and buttons items
       def build_values
         refresh_values
-        process_sales_if_needed
+        process_sales_if_needed if JacintheManagement::REAL
         build_sales_file_watcher
-        [0, 2, 3, 4, 5].each do |indx|
-          build_column(indx + 1, @values[indx], BUTTONS[indx])
+        [0, 2].each do |indx|
+          build_column(indx + 2, @values[indx], BUTTONS[indx + 1])
         end
-        build_column(2, @values[1], true, 2)
+        build_column(3, @values[1], true, 2)
       end
 
       # fetch values and refresh the variables
@@ -96,11 +101,6 @@ module JacintheManagement
 
       # @return [Boolean] whether new clients exist
       def clients?
-        @values[2] > 0
-      end
-
-      # @return [Boolean] whether notifications have to be made
-      def notifications?
         @values[3] > 0
       end
 
@@ -109,7 +109,8 @@ module JacintheManagement
         age = @importer.source_age
         text = TableItem.text_for_age(age)
         color = TableItem.color_for_value(age, 24, 168)
-        set_item(1, 0, TableItem.new(text, color))
+        set_item(1, 1, TableItem.new(text, color))
+       # set_item(2, 1, TableItem.new('Importer', '#F00')) if @importer.need_update
       end
 
       # Import the sales if  file is newer
@@ -135,9 +136,19 @@ module JacintheManagement
       # @param [Integer] row row index
       # @param [Integer] col column index
       def clicked(row, col)
-        return unless row == 2 && BUTTONS[col - 1] && @values[col - 1].to_s != '0'
-        ACTION_FOR[col].call
+        return unless row == 2 && BUTTONS[col -1] && @values[col - 1].to_s != '0'
+        ACTION_FOR[col - 1].call
       end
+
+      # # force gi command
+      # def gi!
+      #
+      #   puts "go"
+      #   GuiQt.suspending_user_events do
+      #     GuiQt.under_warning(self) { Core::Command.cron_run('gi') }
+      #   end
+      # end
+
     end
   end
 end

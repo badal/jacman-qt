@@ -16,10 +16,10 @@ module JacintheManagement
       slots :report
 
       # Night commands to watch
-      AUTO_COMMANDS = %w(di de ep ea jtd gi)
+      AUTO_COMMANDS = %w(di de ep ea jtd)
 
       # Core::Command frames to build
-      COMMANDS = %w(de di ge ep ea en)
+      COMMANDS = %w(de di ge ep ea)
 
       # Build the layout
       def build_layout
@@ -27,7 +27,7 @@ module JacintheManagement
         add_widget(WatcherTable.new(AUTO_COMMANDS))
         add_line
 
-        add_line_header_with_help('Operations de gestion : surveillance', :help_pending)
+        add_line_header_with_help('Liaison avec gescom : surveillance', :help_pending)
         @pending_table = PendingTable.new
         add_widget(@pending_table)
         add_line
@@ -41,15 +41,15 @@ module JacintheManagement
       # @return [[Integer] * 4] geometry of mother window
       def geometry
         if Core::Utils.on_mac?
-          [0, 100, 1300, 900]
+          [0, 100, 1200, 900]
         else
-          [0, 100, 1000, 620]
+          [0, 100, 900, 620]
         end
       end
 
       # @return [String] name of manager specialty
       def subtitle
-        'Manageur général pour Jacinthe'
+        'Moniteur de surveillance pour Jacinthe'
       end
 
       # Add a command range
@@ -97,7 +97,7 @@ module JacintheManagement
       def update_values
         super
         @frames[2].enabled = @pending_table.clients?
-        @frames[5].enabled = @pending_table.notifications?
+   #     @frames[5].enabled = @pending_table.notifications?
       end
     end
   end
