@@ -20,9 +20,9 @@ module JacintheManagement
 
     WAITING_TEXT =
         [
-            'Importation des Ventes en cours',
-            'ATTENDRE',
-            'Ne pas fermer la fenêtre'
+          'Importation des Ventes en cours',
+          'ATTENDRE',
+          'Ne pas fermer la fenêtre'
         ].join("\n")
 
     # showing a message box while a task is processed
@@ -43,36 +43,33 @@ module JacintheManagement
     class PendingTable < Table
       # First column
       SUBTITLES =
-          [
-              'Opérations',
-              'Etat',
-              'Actions'
-          ]
+          %w(Opérations Etat Actions)
       # Headers for the table
       HEADERS =
           [
-              'Fichier ventes GESCOM',
-              'Ventes non importées',
-              'Fichiers clients non lus',
-              'Clients à exporter'
+            'Importation des ventes',
+            'Fichier ventes GESCOM',
+            'Ventes non importées',
+            'Fichiers clients non lus',
+            'Clients à exporter'
           ]
 
-      # whether column may have button
-      BUTTONS = [false, true, true, false, false]
+      # whether column may have has_button
+      HAS_BUTTON = [true, false, true, true, false]
 
       # Actions corresponding to the second row
       ACTION_FOR =
           [
-              nil, # -> { gi! },
-              -> { Core::Sales.show_remaining_sales },
-              -> { Core::Clients.show_client_files },
-              nil,
+            nil,
+            nil, # -> { gi! },
+            -> { Core::Sales.show_remaining_sales },
+            -> { Core::Clients.show_client_files },
+            nil
           ]
 
       # Build a new instance
       def initialize
-        super(3, 5)
-        @count = 0
+        super(3, 6)
         SUBTITLES.each_with_index do |subtitle, indx|
           set_item(indx, 0, TableItem.new(subtitle))
         end
@@ -87,11 +84,11 @@ module JacintheManagement
       def build_values
         refresh_values
         process_sales_if_needed if JacintheManagement::REAL
+        build_import_sales_watcher
         build_sales_file_watcher
-        [0, 2].each do |indx|
-          build_column(indx + 2, @values[indx], BUTTONS[indx + 1])
-        end
-        build_column(3, @values[1], true, 2)
+        build_column(3, @values[0], true)
+        build_column(4, @values[1], true, 2)
+        build_column(5, @values[2], false)
       end
 
       # fetch values and refresh the variables
@@ -101,19 +98,29 @@ module JacintheManagement
 
       # @return [Boolean] whether new clients exist
       def clients?
-        @values[3] > 0
+        @values[4] > 0
       end
 
-      # Build the first item (sales)
+      # build the import watcher column
+      def build_import_sales_watcher
+        level, @import_report, age = *Core::CommandWatcher.report(['gi']).first
+        top = WatcherTable.checking_text(level, age)
+        bottom = WatcherTable.button(level)
+        color = COLOR_TABLE[level]
+        set_item(1, 1, TableItem.new(top, color))
+        set_item(2, 1, TableItem.new(bottom))
+      end
+
+      # Build the sales file column
       def build_sales_file_watcher
         age = @importer.source_age
         text = TableItem.text_for_age(age)
         color = TableItem.color_for_value(age, 24, 168)
-        set_item(1, 1, TableItem.new(text, color))
-       # set_item(2, 1, TableItem.new('Importer', '#F00')) if @importer.need_update
+        set_item(1, 2, TableItem.new(text, color))
+        # set_item(2, 2, TableItem.new('Importer', '#F00')) if @importer.need_update
       end
 
-      # Import the sales if  file is newer
+      # Import the sales if file is newer
       def process_sales_if_needed
         return unless @importer.need_update
         GuiQt.suspending_user_events do
@@ -125,19 +132,26 @@ module JacintheManagement
       # @param [Integer] col column index
       # @param [Integer] value to be shown in item
       # @param [Integer] limit limit value for red
-      # @param [Boolean] button whether the second case is to be active
-      def build_column(col, value, button, limit = 999_999)
+      # @param [Boolean] has_button whether the second case is to be active
+      def build_column(col, value, has_button, limit = 999_999)
         color = TableItem.color_for_value(value.to_i, 1, limit)
         set_item(1, col, TableItem.new(value.to_s, color))
-        set_item(2, col, TableItem.new('Voir le fichier', '#EEE')) if value.to_s != '0' && button
+        return if value.to_s == '0' || !has_button
+        set_item(2, col, TableItem.new('Voir le fichier', '#EEE'))
       end
 
       # Slot : show the corresponding directory/file when the item is clicked
       # @param [Integer] row row index
       # @param [Integer] col column index
       def clicked(row, col)
-        return unless row == 2 && BUTTONS[col -1] && @values[col - 1].to_s != '0'
-        ACTION_FOR[col - 1].call
+        return unless row == 2
+        if col == 1
+          show_file('Rapport d\'importation', @import_report)
+        elsif HAS_BUTTON[col - 1] && @values[col - 3].to_s != '0'
+          ACTION_FOR[col - 1].call
+        else
+          nil
+        end
       end
 
       # # force gi command
@@ -148,7 +162,6 @@ module JacintheManagement
       #     GuiQt.under_warning(self) { Core::Command.cron_run('gi') }
       #   end
       # end
-
     end
   end
 end

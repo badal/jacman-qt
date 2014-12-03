@@ -26,5 +26,3 @@ JacintheManagement.log('Opening manager')
 central_class = JacintheManagement::GuiQt::ManagerCentralWidget
 JacintheManagement::GuiQt::ManagerMain.run(central_class)
 JacintheManagement.log('Closing manager')
-
-

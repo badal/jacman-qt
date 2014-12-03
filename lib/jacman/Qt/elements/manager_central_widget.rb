@@ -97,7 +97,7 @@ module JacintheManagement
       def update_values
         super
         @frames[2].enabled = @pending_table.clients?
-   #     @frames[5].enabled = @pending_table.notifications?
+        #     @frames[5].enabled = @pending_table.notifications?
       end
     end
   end

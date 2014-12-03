@@ -26,6 +26,20 @@ module JacintheManagement
         end
       end
 
+      # Build the text for the bottom entry
+      # @param [Symbol] level severity symbol
+      # @return [String] text for button
+      def self.button(level)
+        case level
+        when :OK, :LATE
+          'Voir le rapport'
+        when :ERROR
+          'Voir le rapport d\'erreur'
+        else
+          ''
+        end
+      end
+
       # @param [Array<String>] list list of cronman commands to watch
       # @return [WatcherTable] a new instance
       def initialize(list)
@@ -51,24 +65,10 @@ module JacintheManagement
       # @param [Object] level severity
       def build_column_for(col, age, level)
         top = WatcherTable.checking_text(level, age)
-        bottom = button(level)
+        bottom = WatcherTable.button(level)
         color = COLOR_TABLE[level]
         set_item(1, col, TableItem.new(top, color))
         set_item(2, col, TableItem.new(bottom))
-      end
-
-      # Build the text for the bottom entry
-      # @param [Symbol] level severity symbol
-      # @return [String] text for button
-      def button(level)
-        case level
-        when :OK, :LATE
-          'Voir le rapport'
-        when :ERROR
-          'Voir le rapport d\'erreur'
-        else
-          ''
-        end
       end
 
       # Slot: when clicked, show the corresponding help file
