@@ -14,6 +14,16 @@ module JacintheManagement
     RED = '#F00'
     BLUE = '#CDF'
 
+
+    # Open a popup for displaying a file
+    # @param [String] title title of popup
+    # @param [Paths] file file to show
+    # @param [Qt element] parent widget
+    def self.show_file(parent, title, file)
+      text = File.read(file).force_encoding('utf-8')
+      Qt::MessageBox.information(parent, title, text)
+    end
+
     # Class of styled frames
     class EmptyFrame < Qt::Frame
       # Build a new frame

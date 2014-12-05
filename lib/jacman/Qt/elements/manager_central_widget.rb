@@ -40,7 +40,7 @@ module JacintheManagement
 
       # @return [[Integer] * 4] geometry of mother window
       def geometry
-        if Core::Utils.on_mac?
+        if Utils.on_mac?
           [0, 100, 1200, 900]
         else
           [0, 100, 900, 620]

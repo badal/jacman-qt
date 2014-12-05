@@ -11,7 +11,7 @@ module JacintheManagement
   def self.open_log
     Dir.chdir(Core::DATADIR)
     log_dir = File.join(Core::DATADIR, 'jacman_logs')
-    Core::Utils.make_dir_if_necessary(log_dir, 0773)
+    Utils.make_dir_if_necessary(log_dir, 0773)
     log_file = File.expand_path('jacman.log', log_dir)
     @logger = Logger.new(log_file, 'monthly')
     @logger.level = Logger::INFO

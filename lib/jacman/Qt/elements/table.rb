@@ -91,13 +91,6 @@ module JacintheManagement
       # Abstract slot, to be overridden
       # def clicked(row, col) end
 
-      # Open a popup for displaying a file
-      # @param [String] title title of popup
-      # @param [Paths] file file to show
-      def show_file(title, file)
-        text = File.read(file).force_encoding('utf-8')
-        Qt::MessageBox.information(self, title, text)
-      end
     end
   end
 end

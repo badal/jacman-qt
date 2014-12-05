@@ -78,7 +78,7 @@ module JacintheManagement
         return unless row == 2
         level, file, _ = @elements[col - 1]
         title = @headers[col - 1]
-        show_file(title, file) unless level == :NEVER
+        GuiQt.show_file(self, title, file) unless level == :NEVER
       end
     end
   end

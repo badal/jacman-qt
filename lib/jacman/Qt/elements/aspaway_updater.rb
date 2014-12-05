@@ -23,6 +23,12 @@ module JacintheManagement
         @call_name = call_name
       end
 
+      # @param [Time] time time of event
+      # @return [Numeric] delay in hours
+      def self.delay(time)
+        (Time.now - time) / (60 * 60)
+      end
+
       # WARNING: this is stronger than @importer.returned because it checks for
       #   completion of importation and not only of fetch
       # Update source_age and say if import is needed
@@ -30,7 +36,7 @@ module JacintheManagement
       def need_update
         return false if @updating # protecting
         source_time = @importer.time_of_file
-        @source_age = Core::Utils.delay(source_time).to_i
+        @source_age = AspawayUpdater.delay(source_time).to_i
         !File.exist?(@stamp) || source_time > File.mtime(@stamp)
       end
 

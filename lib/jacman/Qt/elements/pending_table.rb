@@ -54,19 +54,6 @@ module JacintheManagement
             'Clients à exporter'
           ]
 
-      # whether column may have has_button
-      HAS_BUTTON = [true, false, true, true, false]
-
-      # Actions corresponding to the second row
-      ACTION_FOR =
-          [
-            nil,
-            nil, # -> { gi! },
-            -> { Core::Sales.show_remaining_sales },
-            -> { Core::Clients.show_client_files },
-            nil
-          ]
-
       # Build a new instance
       def initialize
         super(3, 6)
@@ -145,12 +132,13 @@ module JacintheManagement
       # @param [Integer] col column index
       def clicked(row, col)
         return unless row == 2
-        if col == 1
-          show_file('Rapport d\'importation', @import_report)
-        elsif HAS_BUTTON[col - 1] && @values[col - 3].to_s != '0'
-          ACTION_FOR[col - 1].call
-        else
-          nil
+        case col
+        when 1
+          GuiQt.show_file(self, 'Rapport d\'importation', @import_report)
+        when 3
+          GuiQt.show_file(self, 'Ventes', Core::Sales::REMAINING_SALES_FILE)
+        when 4
+          Core::Clients.show_client_files
         end
       end
 

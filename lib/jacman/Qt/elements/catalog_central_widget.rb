@@ -49,7 +49,7 @@ END_CATALOG_HELP
 
       # @return [[integer] * 4] geometry of mother window
       def geometry
-        if Core::Utils.on_mac?
+        if Utils.on_mac?
           [0, 100, 1300, 500]
         else
           [100, 100, 900, 320]
