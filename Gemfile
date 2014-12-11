@@ -1,4 +1,6 @@
 gem 'jacman-core', git: 'C:/Users/Michel/Documents/Share/dev_ruby/jacman-core', branch: 'master'
+gem 'j2r-jaccess'
+gem 'j2r-core'
 
 source 'http://rubygems.org'
 

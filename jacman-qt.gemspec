@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
   s.author = 'Michel Demazure'
   s.email = 'michel@demazure.com'
   s.add_dependency 'qtbindings'
-  s.add_dependency 'jacman-core'
   s.homepage = 'http://github.com/badal/jacman-qt'
   s.license = 'MIT'
   s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('{lib,spec}/**/*')

@@ -10,3 +10,4 @@
 Gemfile.lock
 metrics.rake
 /lib/my_config.rb
+jacman.reek
