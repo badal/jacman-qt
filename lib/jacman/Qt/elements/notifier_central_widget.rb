@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-# File: manager_central_widget.rb
-# Created:  02/10/13
+# File: monitor_central_widget.rb
+# Created:  02/10/13 for manager
+# Modified: 12/14 for monitor
 #
 # (c) Michel Demazure <michel@demazure.com>
 
@@ -10,8 +11,36 @@
 module JacintheManagement
   module GuiQt
     # Central widget for manager
-    class ManagerCentralWidget < CentralWidget
-      include ManagerHelp
+    class NotifierCentralWidget < CentralWidget
+
+        # @return [[Integer] * 4] geometry of mother window
+      def geometry
+        if Utils.on_mac?
+          [0, 100, 1200, 900]
+        else
+          [0, 100, 900, 620]
+        end
+      end
+
+      # @return [String] name of manager specialty
+      def subtitle
+        'Notification des abonnement électroniques, prototype'
+      end
+
+      def build_layout
+
+      end
+
+      def update_values
+        # super
+      end
+
+    end
+  end
+end
+__END__
+      # FIXME: notifier help
+     # include MonitorHelp
 
       slots :report
 
@@ -38,19 +67,6 @@ module JacintheManagement
         add_line
       end
 
-      # @return [[Integer] * 4] geometry of mother window
-      def geometry
-        if Utils.on_mac?
-          [0, 100, 1200, 900]
-        else
-          [0, 100, 900, 620]
-        end
-      end
-
-      # @return [String] name of manager specialty
-      def subtitle
-        'Moniteur de surveillance pour Jacinthe'
-      end
 
       # Add a command range
       # @param [Array<String>] cmds call names of commands for this range

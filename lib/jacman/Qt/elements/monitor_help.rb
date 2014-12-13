@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-# File: manager_help.rb
+# File: monitor_help.rb
 # Created:  06/10/13
 #
 # (c) Michel Demazure <michel@demazure.com>
@@ -10,7 +10,7 @@
 module JacintheManagement
   module GuiQt
     # Help texts and slots for manager
-    module ManagerHelp
+    module MonitorHelp
       # general manager help
       MANAGER_HELP = <<MANAGER_HELP_END
 
@@ -25,11 +25,9 @@ MANAGER_HELP_END
       # help for night commands
       NIGHT_HELP = <<NIGHT_HELP_END
 Cette zone est consacrée à la surveillance des opérations exécutées
-automatiquement par le serveur, les cinq premières chaque nuit, la
-dernière à chaque écriture du fichier des ventes.
+automatiquement par le serveur chaque nuit.
 
-Normalement, les cinq premiers indicateurs doivent être verts,
-le dernier vert ou jaune.
+Normalement, les indicateurs doivent être verts.
 
 Un indicateur jaune signale que l'opération n'a pas été exécutée dans
 les dernières 24 heures, un indicateur rouge qu'il y a eu une erreur.
@@ -47,14 +45,12 @@ Le code de couleur est le suivant :
 -  rouge : retard anormal (pour l'écriture du fichier des ventes).
 
 Les diverses opérations sont :
+-  Importation des ventes : date de la dernière importation (automatique)
 -  Fichier des ventes : date de la dernière écriture par Gescom.
 -  Ventes non importées : lors de la dernière importation.
 -  Fichier client : présence d'un fichier 'ClientSage'
-                    exporté par Jacinthe et non revenu.
--  Nouveaux clients : présence dans la base de clients à exporter.
--  Notifications : présence dans la base d'abonnements (élec.) non notifiés.
--  Plages non valides : détectées lors de la dernière exportation.
--  Abonnés sans mail : détectés lors de la dernière notification.
+                    exporté par Jacinthe et non revenu de Gescom.
+-  Clients à exporter : présence dans la base de clients nouveaux ou modifiés.
 PENDING_HELP_END
 
       # help for commands
@@ -92,7 +88,7 @@ END_CMD_HELP
 
       # HTML hem file
       HELP_FILE = File.expand_path('manager.html',
-                                   File.join(File.dirname(__FILE__), '../../..', 'help'))
+                                   File.join(File.dirname(__FILE__), '../../../..', 'help'))
 
       # SLOT : show help MessageBox for manager
       def help
