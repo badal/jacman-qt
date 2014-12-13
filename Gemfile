@@ -1,4 +1,4 @@
-gem 'jacman-core'
+gem 'jacman-core-old'
 gem 'j2r-jaccess'
 gem 'j2r-core'
 

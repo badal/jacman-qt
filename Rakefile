@@ -7,7 +7,7 @@ require_relative 'lib/jacman/qt/version.rb'
 
 desc 'build gem file'
 task :build_gem do
-  system 'gem build jacman-qt.gemspec'
+  system 'gem build jacman-qt-old.gemspec'
   FileUtils.cp(Dir.glob('*.gem'), ENV['LOCAL_GEMS'])
 end
 
