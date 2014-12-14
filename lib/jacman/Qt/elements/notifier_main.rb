@@ -17,9 +17,9 @@ module JacintheManagement
                "   jacman-core : #{JacintheManagement::Core::VERSION}",
                "   notifier: 0.1.0",
                'S.M.F. 2011-2014',
-               "\u00A9 Michel Demazure", 'LICENCE M.I.T.']
+               "\u00A9 Michel Demazure, LICENCE M.I.T."]
 
-      slots :about, :help, :update_values, :gi!
+      slots :about, :help, :update_values
 
       # tests whether window is active or minimized
       # @param [Qt::Object] obj origin of event

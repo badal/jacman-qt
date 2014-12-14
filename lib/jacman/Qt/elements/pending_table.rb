@@ -85,7 +85,7 @@ module JacintheManagement
 
       # @return [Boolean] whether new clients exist
       def clients?
-        @values[4] > 0
+        @values[2] > 0
       end
 
       # build the import watcher column
