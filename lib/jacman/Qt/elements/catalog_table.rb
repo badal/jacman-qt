@@ -94,7 +94,7 @@ module JacintheManagement
         return unless row == 2 && col > 0
         title, filename = CatalogTable.help_parameters_for(col)
         file = File.join(File.dirname(__FILE__), 'gescom_help_files', filename)
-        show_file(title, file)
+        GuiQt.show_file(self, title, file)
       end
 
       # Give parameters for the help MessageBox
