@@ -23,4 +23,3 @@ JacintheManagement.log('Opening monitor')
 central_class = JacintheManagement::GuiQt::MonitorCentralWidget
 JacintheManagement::GuiQt::ManagerMain.run(central_class)
 JacintheManagement.log('Closing monitor')
-

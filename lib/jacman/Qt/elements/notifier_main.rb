@@ -12,10 +12,15 @@ module JacintheManagement
   module GuiQt
     # Manager main window
     class NotifierMain < Qt::MainWindow
+      # version
+      VERSION = '0.3.0'
+
       # "About" message
-      ABOUT = ["Versions",
+      ABOUT = ['Versions',
+               "   jacman-qt : #{JacintheManagement::VERSION}",
                "   jacman-core : #{JacintheManagement::Core::VERSION}",
-               "   notifier: 0.1.0",
+               "   jacman-notifications : #{JacintheManagement::Notifications::VERSION}",
+               "   notifier: #{VERSION}",
                'S.M.F. 2011-2014',
                "\u00A9 Michel Demazure, LICENCE M.I.T."]
 
@@ -51,9 +56,9 @@ module JacintheManagement
         status = statusBar
         about = Qt::PushButton.new('A propos...')
         help = Qt::PushButton.new(Icons.icon('standardbutton-help'), 'Aide')
-         status.addPermanentWidget(help)
+        status.addPermanentWidget(help)
         status.addPermanentWidget(about)
-         status.connect(about, SIGNAL(:clicked), self, SLOT(:about))
+        status.connect(about, SIGNAL(:clicked), self, SLOT(:about))
         status.connect(help, SIGNAL(:clicked), self, SLOT(:help))
         status
       end

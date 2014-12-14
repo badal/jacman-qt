@@ -90,7 +90,6 @@ module JacintheManagement
 
       # Abstract slot, to be overridden
       # def clicked(row, col) end
-
     end
   end
 end

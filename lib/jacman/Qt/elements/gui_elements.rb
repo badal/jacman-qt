@@ -14,7 +14,6 @@ module JacintheManagement
     RED = '#F00'
     BLUE = '#CDF'
 
-
     # Open a popup for displaying a file
     # @param [String] title title of popup
     # @param [Paths] file file to show
