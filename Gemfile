@@ -1,5 +1,5 @@
-gem 'jacman-core-new', git: 'C:/Users/Michel/Documents/Share/dev_ruby/jacman-core-new', branch: 'master'
-gem 'jacman-notifications' #, git: 'C:/Users/Michel/Documents/Share/dev_ruby/jacman-notifications', branch: 'master'
+gem 'jacman-core-new'
+gem 'jacman-notifications'
 gem 'j2r-jaccess'
 gem 'j2r-core'
 
