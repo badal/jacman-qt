@@ -6,13 +6,16 @@
 #
 # (c) Michel Demazure <michel@demazure.com>
 require 'jacman/core'
+
+# require_relative '../../../../jacman-notifications/lib/jacman/notifications.rb'
 require 'jacman/notifications'
 
 require_relative('version.rb')
 # require_relative('elements/monitor_help.rb')
 require_relative('elements/log.rb')
+require_relative('elements/icons.rb')
 require_relative('elements/notifier_main.rb')
-require_relative 'elements/monitor_elements.rb'
+require_relative('elements/central_widget.rb')
 require_relative('elements/notifier_central_widget.rb')
 
 JacintheManagement.open_log

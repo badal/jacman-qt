@@ -100,12 +100,16 @@ module JacintheManagement
         return unless confirm_dialog(text)
         answer = do_notify
         @report.append answer.join("\n")
+        update_classification
         redraw_layout
         update_selection
       end
 
+      def update_classification
+        @toto = Notifications::Base.build_classified_notifications
+      end
+
       def redraw_layout
-        @selected_keys.each { |key| @toto[key] = [] }
         @toto.each_pair.with_index do |(key, value), idx|
           @numbers[idx].text = format(FMT, value.size)
           @check_buttons[idx].enabled = (value.size > 0)

@@ -80,7 +80,7 @@ module JacintheManagement
 
       # fetch values and refresh the variables
       def refresh_values
-        @values = Core::Info.refresh_values
+        @values = Core::Infos.refresh_values
       end
 
       # @return [Boolean] whether new clients exist
