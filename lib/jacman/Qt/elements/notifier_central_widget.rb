@@ -38,6 +38,15 @@ module JacintheManagement
         build_report_area
         update_selection
         redraw_layout
+        initial_report
+      end
+
+      def initial_report
+        report(Notifications::REAL ? 'Mode réel' : 'Mode simulé')
+      end
+
+      def report(text)
+        @report.append(text)
       end
 
       def build_report_area
@@ -96,10 +105,10 @@ module JacintheManagement
       end
 
       def confirm
-        text = " Notifier #{@selected_size} abonnements. Confirmez"
+        text = " Notifier #{@selected_size} abonnement(s)"
         return unless confirm_dialog(text)
         answer = do_notify
-        @report.append answer.join("\n")
+        report(answer.join("\n"))
         update_classification
         redraw_layout
         update_selection
@@ -129,11 +138,11 @@ module JacintheManagement
       end
 
       def update_view
-        @sel.text = "<b>Notifier #{@selected_size} abonnements ?</b>"
+        @sel.text = "<b>Notifier #{@selected_size} abonnement(s) ?</b>"
         @sel.enabled = (@selected_size > 0)
         @notify_button.enabled = (@selected_size > 0)
         number = Notifications::Base.notifications_number
-        @number.text = "<b>#{number} abonnements attendent notification</b>"
+        @number.text = "<b>Notification à faire pour #{number} abonnement(s)</b>"
       end
 
       def confirm_dialog(message)
