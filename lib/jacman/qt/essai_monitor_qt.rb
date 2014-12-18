@@ -6,10 +6,8 @@
 #
 # (c) Michel Demazure <michel@demazure.com>
 
-require 'j2r/jaccess'
-require 'j2r/core'
-require 'jacman/utils'
-require 'jacman/core'
+require_relative '../../../../jacman-utils/lib/jacman/utils.rb'
+require_relative '../../../../jacman-core-new/lib/jacman/core.rb'
 
 require_relative('version.rb')
 require_relative('elements/monitor_help.rb')

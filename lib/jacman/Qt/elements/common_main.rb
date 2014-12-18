@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-# File: manager_main.rb
+# File: common_main.rb
 # Created: 18/08/13
 #
 # (c) Michel Demazure <michel@demazure.com>
@@ -10,17 +10,10 @@ require 'Qt'
 
 module JacintheManagement
   module GuiQt
-    # Manager main window
-    class ManagerMain < Qt::MainWindow
-      # "About" message
-      ABOUT = ["Versions jacman-qt : #{JacintheManagement::VERSION}",
-               "   j2r-jaccess : #{J2R::Jaccess::VERSION}",
-               "   j2r-core : #{J2R::Core::VERSION}",
-               "   jacman-core : #{JacintheManagement::Core::VERSION}",
-               'S.M.F. 2011-2014',
-               "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
+    # Common main window
+    class CommonMain < Qt::MainWindow
 
-      slots :about, :help, :update_values, :gi!
+      slots :about, :help, :update_values
 
       # tests whether window is active or minimized
       # @param [Qt::Object] obj origin of event
@@ -39,8 +32,8 @@ module JacintheManagement
         self.window_icon = Icons.from_file('Board-11-Flowers-icon.png')
         self.window_title =
             "#{central_widget.subtitle}, version #{JacintheManagement::VERSION}"
-        @status = build_status_bar
         @central_widget = central_widget
+        @status = build_status_bar
         self.central_widget = @central_widget
         set_geometry(*central_widget.geometry)
         update_values
@@ -53,10 +46,9 @@ module JacintheManagement
         force_gi = Qt::PushButton.new('Force gi !')
         about = Qt::PushButton.new('A propos...')
         help = Qt::PushButton.new(Icons.icon('standardbutton-help'), 'Aide')
-        status.addPermanentWidget(force_gi)
+        @central_widget.extend_status(status)
         status.addPermanentWidget(help)
         status.addPermanentWidget(about)
-        status.connect(force_gi, SIGNAL(:clicked), self, SLOT(:"gi!"))
         status.connect(about, SIGNAL(:clicked), self, SLOT(:about))
         status.connect(help, SIGNAL(:clicked), self, SLOT(:help))
         status
@@ -72,16 +64,9 @@ module JacintheManagement
         JacintheManagement.err(error)
       end
 
-      # Slot : force gi command
-      def gi!
-        GuiQt.suspending_user_events do
-          GuiQt.under_warning(self) { Core::Command.cron_run('gi') }
-        end
-      end
-
       # Slot : open the about dialog
       def about
-        text = ([@central_widget.subtitle] + ABOUT).join("\n")
+        text = @central_widget.about.join("\n")
         Qt::MessageBox.about(self, 'Jacinthe Management', text)
       end
 

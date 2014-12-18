@@ -12,6 +12,17 @@ module JacintheManagement
   module GuiQt
     # Central widget for manager
     class NotifierCentralWidget < CentralWidget
+      VERSION = '0.3.0'
+
+      # "About" message
+      ABOUT = ['Versions',
+               "   jacman-qt : #{JacintheManagement::VERSION}",
+               "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
+               "   jacman-notifications : #{JacintheManagement::Notifications::VERSION}",
+               "   notifier: #{VERSION}",
+               'S.M.F. 2011-2014',
+               "\u00A9 Michel Demazure, LICENCE M.I.T."]
+
       slots :update_selection, :confirm
 
       # format for *caption_text*
@@ -29,6 +40,10 @@ module JacintheManagement
       # @return [String] name of manager specialty
       def subtitle
         'Notification des abonnement électroniques'
+      end
+
+      def about
+        [subtitle] + ABOUT
       end
 
       def build_layout

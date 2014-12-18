@@ -65,6 +65,11 @@ module JacintheManagement
         @layout.add_layout(horiz)
       end
 
+      # FIXME
+      def extend_status(status)
+
+      end
+
       # Refresh by sending 'build_values' to all TableWidget children
       def update_values
         @layout.count.times do |indx|

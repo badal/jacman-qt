@@ -6,7 +6,7 @@ $LOAD_PATH.unshift(dir) unless $LOAD_PATH.include?(dir)
 require 'lib/jacman/qt/version.rb'
 
 Gem::Specification.new do |s|
-  s.name = 'jacman-qt-new'
+  s.name = 'jacman-qt'
   s.version = JacintheManagement::VERSION
   s.has_rdoc = true
   s.extra_rdoc_files = %w(README.md LICENSE)

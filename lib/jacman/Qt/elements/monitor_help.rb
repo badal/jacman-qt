@@ -12,7 +12,7 @@ module JacintheManagement
     # Help texts and slots for manager
     module MonitorHelp
       # general manager help
-      MANAGER_HELP = <<MANAGER_HELP_END
+      MONITOR_HELP = <<MONITOR_HELP_END
 
 Le manager de Jacinthe comporte trois zones consacrées respectivement à :
 -  la surveillance des opérations lancées automatiquement,
@@ -20,7 +20,7 @@ Le manager de Jacinthe comporte trois zones consacrées respectivement à :
 -  les commandes permettant de lancer ces opérations.
 
 Chaque zone possède un bouton d'aide spécifique.
-MANAGER_HELP_END
+MONITOR_HELP_END
 
       # help for night commands
       NIGHT_HELP = <<NIGHT_HELP_END
@@ -92,7 +92,7 @@ END_CMD_HELP
 
       # SLOT : show help MessageBox for manager
       def help
-        #  qt::MessageBox.information(self, 'le Manageur de Jacinthe', MANAGER_HELP)
+        #  qt::MessageBox.information(self, 'le Manageur de Jacinthe', MONITOR_HELP)
         Utils.open_file(HELP_FILE)
       end
     end

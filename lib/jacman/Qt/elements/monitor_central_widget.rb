@@ -14,7 +14,7 @@ module JacintheManagement
     class MonitorCentralWidget < CentralWidget
       include MonitorHelp
 
-      slots :report
+      slots :report, :gi!
 
       # Night commands to watch
       AUTO_COMMANDS = %w(di de ep ea jtd)
@@ -51,6 +51,23 @@ module JacintheManagement
       # @return [String] name of manager specialty
       def subtitle
         'Moniteur de surveillance pour Jacinthe'
+      end
+
+      # "About" message
+      ABOUT = ["Versions jacman-qt : #{JacintheManagement::VERSION}",
+               "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
+               "   jacman-core : #{JacintheManagement::Core::VERSION}",
+               'S.M.F. 2011-2014',
+               "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
+
+      def about
+        [subtitle] + ABOUT
+      end
+
+      def extend_status(status)
+        force_gi = Qt::PushButton.new('Force gi !')
+        status.addPermanentWidget(force_gi)
+        status.connect(force_gi, SIGNAL(:clicked), self, SLOT(:"gi!"))
       end
 
       # Add a command range
@@ -92,6 +109,13 @@ module JacintheManagement
         JacintheManagement.log(text)
         @report.append(text)
         Qt::CoreApplication.process_events
+      end
+
+      # Slot : force gi command
+      def gi!
+        GuiQt.suspending_user_events do
+          GuiQt.under_warning(self) { Core::Command.cron_run('gi') }
+        end
       end
 
       # enabling/disabling buttons
