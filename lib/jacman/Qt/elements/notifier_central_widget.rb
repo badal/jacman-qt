@@ -98,6 +98,7 @@ module JacintheManagement
       end
 
       # build the selection area
+      # FLOG: 25.2
       def build_selection_area
         @pending_notifications = Notifications::Base.classified_notifications
         @check_buttons = []

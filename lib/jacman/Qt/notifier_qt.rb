@@ -6,9 +6,6 @@
 #
 # (c) Michel Demazure <michel@demazure.com>
 
-require 'jacman/utils'
-require 'jacman/notifications'
-
 require_relative('version.rb')
 # require_relative('elements/monitor_help.rb')
 require_relative('elements/log.rb')

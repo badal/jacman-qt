@@ -6,9 +6,6 @@
 #
 # (c) Michel Demazure <michel@demazure.com>
 
-require 'jacman/utils'
-require 'jacman/core'
-
 require_relative('version.rb')
 require_relative('elements/log.rb')
 require_relative('elements/common_main.rb')
