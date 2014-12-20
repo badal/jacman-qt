@@ -12,6 +12,7 @@ module JacintheManagement
   module GuiQt
     # Central widget for manager
     class NotifierCentralWidget < CentralWidget
+      # version of the notifier
       VERSION = '0.3.0'
 
       # "About" message
@@ -42,28 +43,34 @@ module JacintheManagement
         'Notification des abonnement électroniques'
       end
 
+      # @return [Array<String>] about message
       def about
         [subtitle] + ABOUT
       end
 
+      # build the layout
       def build_layout
         build_first_line
         build_selection_area
         build_notify_command_area
         build_report_area
         update_selection
-        redraw_layout
+        redraw_selection_area
         initial_report
       end
 
+      # print the report first line
       def initial_report
         report(Notifications::REAL ? 'Mode réel' : 'Mode simulé')
       end
 
+      # show th report
+      # @param [String] text to show
       def report(text)
         @report.append(text)
       end
 
+      # build the report area
       def build_report_area
         Qt::HBoxLayout.new do |box|
           @layout.add_layout(box)
@@ -72,6 +79,7 @@ module JacintheManagement
         end
       end
 
+      # build the notify button
       def build_notify_command_area
         Qt::HBoxLayout.new do |box|
           @layout.add_layout(box)
@@ -83,16 +91,18 @@ module JacintheManagement
         end
       end
 
+      # build the first line
       def build_first_line
         @number = Qt::Label.new
         @layout.add_widget(@number)
       end
 
+      # build the selection area
       def build_selection_area
-        @toto = Notifications::Base.classified_notifications
+        @pending_notifications = Notifications::Base.classified_notifications
         @check_buttons = []
         @numbers = []
-        @toto.each_pair.with_index do |(key, value), idx|
+        @pending_notifications.each_pair.with_index do |(key, _), idx|
           Qt::HBoxLayout.new do |line|
             @layout.add_layout(line)
             @numbers[idx] = Qt::Label.new
@@ -108,51 +118,60 @@ module JacintheManagement
         end
       end
 
+      # WARNING: overrides the common one, useless in this cas
       def update_values
       end
 
+      # do all notifications
       def do_notify
         Notifications.notify_all(@selected_keys)
       end
 
+      # @param [array] key the category key to be shown
+      # @return [String] the formatted key
       def format_key(key)
         "#{key.first} <b>[#{key.last}]</b>"
       end
 
+      # show the confirm dialog and execute
       def confirm
         text = " Notifier #{@selected_size} abonnement(s)"
         return unless confirm_dialog(text)
         answer = do_notify
         report(answer.join("\n"))
         update_classification
-        redraw_layout
+        redraw_selection_area
         update_selection
       end
 
+      # ask the SQL base
       def update_classification
-        @toto = Notifications::Base.build_classified_notifications
+        @pending_notifications = Notifications::Base.build_classified_notifications
       end
 
-      def redraw_layout
-        @toto.each_pair.with_index do |(key, value), idx|
+      # redraw the selection_area
+      def redraw_selection_area
+        @pending_notifications.each_pair.with_index do |(_, value), idx|
           @numbers[idx].text = format(FMT, value.size)
           @check_buttons[idx].enabled = (value.size > 0)
         end
       end
 
+      # SLOT when check_button is clicked
       def update_selection
         @selected_keys = []
         @selected_size = 0
-        @toto.each_pair.with_index do |(key, value), idx|
+        @pending_notifications.each_pair.with_index do |(key, value), idx|
           if @check_buttons[idx].checked?
             @selected_keys << key
             @selected_size += value.size
           end
         end
-        update_view
+        redraw_notify_area
       end
 
-      def update_view
+      # update the notify command area
+      def redraw_notify_area
         @sel.text = "<b>Notifier #{@selected_size} abonnement(s) ?</b>"
         @sel.enabled = (@selected_size > 0)
         @notify_button.enabled = (@selected_size > 0)
@@ -160,6 +179,8 @@ module JacintheManagement
         @number.text = "<b>Notification à faire pour #{number} abonnement(s)</b>"
       end
 
+      # @param [String] message to be shown
+      # @return [Bool] answer to dialog
       def confirm_dialog(message)
         message_box = Qt::MessageBox.new(Qt::MessageBox::Warning, 'Jacinthe', message)
         message_box.setWindowIcon(Icons.from_file('Board-11-Flowers-icon.png'))
@@ -170,6 +191,8 @@ module JacintheManagement
         message_box.exec == 0
       end
 
+      # FIXME: add help
+      #  slot help command
       def help
         puts 'add help'
       end

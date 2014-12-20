@@ -60,10 +60,12 @@ module JacintheManagement
                'S.M.F. 2011-2014',
                "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
 
+      # @return [Array<String>] about message
       def about
         [subtitle] + ABOUT
       end
 
+      # add the gi! emergency button to the status line
       def extend_status(status)
         force_gi = Qt::PushButton.new('Force gi !')
         status.addPermanentWidget(force_gi)

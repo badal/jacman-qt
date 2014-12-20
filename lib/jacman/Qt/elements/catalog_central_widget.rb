@@ -68,6 +68,7 @@ END_CATALOG_HELP
                'S.M.F. 2011-2014',
                "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
 
+      # SLOT : about message
       def about
         [subtitle] + ABOUT
       end

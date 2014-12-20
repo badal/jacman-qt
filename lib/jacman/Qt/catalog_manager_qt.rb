@@ -12,7 +12,6 @@ require 'jacman/core'
 require_relative('version.rb')
 require_relative('elements/log.rb')
 require_relative('elements/common_main.rb')
-require_relative('elements/notifier_main.rb')
 require_relative('elements/catalog_manager_elements.rb')
 require_relative('elements/catalog_central_widget.rb')
 

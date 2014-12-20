@@ -19,6 +19,7 @@ require_relative 'elements/monitor_elements.rb'
 require_relative('elements/monitor_central_widget.rb')
 
 module JacintheManagement
+  # put REAL=false  to avoid automatic processing of sales
   REAL = true
 end
 

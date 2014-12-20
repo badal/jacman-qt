@@ -65,9 +65,8 @@ module JacintheManagement
         @layout.add_layout(horiz)
       end
 
-      # FIXME
+      # to be overridden in subclasses
       def extend_status(status)
-
       end
 
       # Refresh by sending 'build_values' to all TableWidget children

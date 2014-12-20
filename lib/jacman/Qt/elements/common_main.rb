@@ -12,7 +12,6 @@ module JacintheManagement
   module GuiQt
     # Common main window
     class CommonMain < Qt::MainWindow
-
       slots :about, :help, :update_values
 
       # tests whether window is active or minimized
@@ -43,7 +42,6 @@ module JacintheManagement
       # @return [Qt::StatusBar] the completed and connected status bar
       def build_status_bar
         status = statusBar
-        force_gi = Qt::PushButton.new('Force gi !')
         about = Qt::PushButton.new('A propos...')
         help = Qt::PushButton.new(Icons.icon('standardbutton-help'), 'Aide')
         @central_widget.extend_status(status)
