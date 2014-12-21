@@ -61,13 +61,6 @@ END_CATALOG_HELP
         'Manager du catalogue de Jacinthe'
       end
 
-      # "About" message
-      ABOUT = ["Versions jacman-qt : #{JacintheManagement::VERSION}",
-               "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
-               "   jacman-core : #{JacintheManagement::Core::VERSION}",
-               'S.M.F. 2011-2014',
-               "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
-
       # SLOT : about message
       def about
         [subtitle] + ABOUT

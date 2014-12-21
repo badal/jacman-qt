@@ -53,13 +53,6 @@ module JacintheManagement
         'Moniteur de surveillance pour Jacinthe'
       end
 
-      # "About" message
-      ABOUT = ["Versions jacman-qt : #{JacintheManagement::VERSION}",
-               "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
-               "   jacman-core : #{JacintheManagement::Core::VERSION}",
-               'S.M.F. 2011-2014',
-               "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
-
       # @return [Array<String>] about message
       def about
         [subtitle] + ABOUT
