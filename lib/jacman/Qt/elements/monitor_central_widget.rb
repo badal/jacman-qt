@@ -27,12 +27,10 @@ module JacintheManagement
         add_line_header_with_help('Operations automatiques : compte-rendu', :help_night)
         add_widget(WatcherTable.new(AUTO_COMMANDS))
         add_line
-
         add_line_header_with_help('Liaison avec gescom : surveillance', :help_pending)
         @pending_table = PendingTable.new
         add_widget(@pending_table)
         add_line
-
         add_line_header_with_help('Operations de gestion : commandes', :help_cmd)
         add_horizontal_range(COMMANDS)
         add_report_area

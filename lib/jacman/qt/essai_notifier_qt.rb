@@ -6,6 +6,7 @@
 #
 # (c) Michel Demazure <michel@demazure.com>
 require_relative '../../../../jacman-utils/lib/jacman/utils.rb'
+require_relative '../../../../jacman-core/lib/jacman/core.rb'
 require_relative '../../../../jacman-notifications/lib/jacman/notifications.rb'
 # require 'jacman/notifications'
 
