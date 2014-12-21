@@ -137,7 +137,7 @@ module JacintheManagement
       # show the confirm dialog and execute
       def confirm
         text = " Notifier #{@selected_size} abonnement(s)"
-        return unless confirm_dialog(text)
+        return unless GuiQt.confirm_dialog(text)
         answer = do_notify
         report(answer.join("\n"))
         update_classification
@@ -178,18 +178,6 @@ module JacintheManagement
         @notify_button.enabled = (@selected_size > 0)
         number = Notifications::Base.notifications_number
         @number.text = "<b>Notification à faire pour #{number} abonnement(s)</b>"
-      end
-
-      # @param [String] message to be shown
-      # @return [Bool] answer to dialog
-      def confirm_dialog(message)
-        message_box = Qt::MessageBox.new(Qt::MessageBox::Warning, 'Jacinthe', message)
-        message_box.setWindowIcon(Icons.from_file('Board-11-Flowers-icon.png'))
-        message_box.setInformativeText('Confirmez-vous ?')
-        message_box.addButton('OUI', Qt::MessageBox::AcceptRole)
-        no_button = message_box.addButton('NON', Qt::MessageBox::RejectRole)
-        message_box.setDefaultButton(no_button)
-        message_box.exec == 0
       end
 
       # FIXME: add help

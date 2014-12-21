@@ -10,6 +10,19 @@ require 'Qt'
 
 module JacintheManagement
   module GuiQt
+
+    # @param [String] message to be shown
+    # @return [Bool] answer to dialog
+    def self.confirm_dialog(message)
+      message_box = Qt::MessageBox.new(Qt::MessageBox::Warning, 'Jacinthe', message)
+      message_box.setWindowIcon(Icons.from_file('Board-11-Flowers-icon.png'))
+      message_box.setInformativeText('Confirmez-vous ?')
+      message_box.addButton('OUI', Qt::MessageBox::AcceptRole)
+      no_button = message_box.addButton('NON', Qt::MessageBox::RejectRole)
+      message_box.setDefaultButton(no_button)
+      message_box.exec == 0
+    end
+
     # Common main window
     class CommonMain < Qt::MainWindow
       slots :about, :help, :update_values

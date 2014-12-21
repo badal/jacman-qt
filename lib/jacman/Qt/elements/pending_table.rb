@@ -20,9 +20,9 @@ module JacintheManagement
 
     WAITING_TEXT =
         [
-          'Importation des Ventes en cours',
-          'ATTENDRE',
-          'Ne pas fermer la fenêtre'
+            'Importation des Ventes en cours',
+            'ATTENDRE',
+            'Ne pas fermer la fenêtre'
         ].join("\n")
 
     # showing a message box while a task is processed
@@ -47,11 +47,11 @@ module JacintheManagement
       # Headers for the table
       HEADERS =
           [
-            'Importation des ventes',
-            'Fichier ventes GESCOM',
-            'Ventes non importées',
-            'Fichiers clients non lus',
-            'Clients à exporter'
+              'Importation des ventes',
+              'Fichier ventes GESCOM',
+              'Ventes non importées',
+              'Fichiers clients non lus',
+              'Clients à exporter'
           ]
 
       # Build a new instance
@@ -136,9 +136,17 @@ module JacintheManagement
         when 1
           GuiQt.show_file(self, 'Rapport d\'importation', @import_report)
         when 3
-          GuiQt.show_file(self, 'Ventes', Core::Sales::REMAINING_SALES_FILE)
+          ask_show_sales
         when 4
           Core::Clients.show_client_files
+        end
+      end
+
+      # ask to be confirmed if number of lines > 200
+      def ask_show_sales
+        siz = File.readlines(Core::Sales::REMAINING_SALES_FILE).size
+        if siz < 200 || GuiQt.confirm_dialog("Montrer #{siz} lignes ?")
+          GuiQt.show_file(self, 'Ventes', Core::Sales::REMAINING_SALES_FILE)
         end
       end
 
