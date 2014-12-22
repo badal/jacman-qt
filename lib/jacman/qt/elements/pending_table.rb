@@ -134,30 +134,20 @@ module JacintheManagement
         return unless row == 2
         case col
         when 1
-          GuiQt.show_file(self, 'Rapport d\'importation', @import_report)
+          ask_show_large_file('Rapport d\'importation', @import_report)
         when 3
-          ask_show_sales
+          ask_show_large_file('Ventes', Core::Sales::REMAINING_SALES_FILE)
         when 4
           Core::Clients.show_client_files
         end
       end
 
-      # ask to be confirmed if number of lines > 200
-      def ask_show_sales
-        siz = File.readlines(Core::Sales::REMAINING_SALES_FILE).size
-        if siz < 200 || GuiQt.confirm_dialog("Montrer #{siz} lignes ?")
-          GuiQt.show_file(self, 'Ventes', Core::Sales::REMAINING_SALES_FILE)
+      def ask_show_large_file(title, file)
+        siz = File.readlines(file).size
+        if siz < 100 || GuiQt.confirm_dialog("Montrer #{siz} lignes ?")
+          GuiQt.show_file(self, title, file)
         end
       end
-
-      # # force gi command
-      # def gi!
-      #
-      #   puts "go"
-      #   GuiQt.suspending_user_events do
-      #     GuiQt.under_warning(self) { Core::Command.cron_run('gi') }
-      #   end
-      # end
     end
   end
 end
