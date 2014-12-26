@@ -18,7 +18,7 @@ require_relative('elements/common_main.rb')
 require_relative('elements/central_widget.rb')
 require_relative('elements/notifier_central_widget.rb')
 
-JacintheManagement.open_log
+JacintheManagement.open_log('notifier.log')
 JacintheManagement.log('Opening notifier')
 central_class = JacintheManagement::GuiQt::NotifierCentralWidget
 JacintheManagement::GuiQt::CommonMain.run(central_class)

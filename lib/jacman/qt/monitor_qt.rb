@@ -18,7 +18,7 @@ module JacintheManagement
   REAL = true
 end
 
-JacintheManagement.open_log
+JacintheManagement.open_log('monitor.log')
 JacintheManagement.log('Opening monitor')
 central_class = JacintheManagement::GuiQt::MonitorCentralWidget
 JacintheManagement::GuiQt::CommonMain.run(central_class)

@@ -1,16 +1,20 @@
 # Jacinthe Management, a.k.a. JacMan
 
 ## Description
-  GUI part of Jacinthe management tools
+  GUI part of Jacinthe management tools, as a separate gem
 
 ## Version
-  2.1.4
+ Version 3, using new gems
+
+## Gems needed
+  * _jacman-utils_, _jacman-core_, _jacman_notifications_
 
 ## Synopsis
-  GUI tools for Jacinthe DB management. Two executables :
+  GUI tools for Jacinthe DB management. Three executables :
 
-  * qt_manager : GUI manager for plain users
-  * qt_catalog_manager : GUI manager for building catalog
+  * monitor_qt : GUI monitor for plain users
+  * catalog_manager_qt : GUI manager for building catalog
+  * notifier_qt : GUI notification tool
 
 ## Usage
   Run one of the executables
