@@ -19,6 +19,7 @@ module JacintheManagement
       ABOUT = ['Versions',
                "   jacman-qt : #{JacintheManagement::VERSION}",
                "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
+               "   jacman-core : #{JacintheManagement::Core::VERSION}",
                "   jacman-notifications : #{JacintheManagement::Notifications::VERSION}",
                "   notifier: #{VERSION}",
                'S.M.F. 2011-2014',
@@ -119,12 +120,13 @@ module JacintheManagement
         end
       end
 
-      # WARNING: overrides the common one, useless in this cas
+      # WARNING: overrides the common one, useless in this case
       def update_values
       end
 
       # do all notifications
       def do_notify
+        JacintheManagement.log("Notifying #{@selected_keys.join(' ')}")
         Notifications.notify_all(@selected_keys)
       end
 
@@ -140,6 +142,7 @@ module JacintheManagement
         return unless GuiQt.confirm_dialog(text)
         answer = do_notify
         report(answer.join("\n"))
+        JacintheManagement.log(answer.join("\n"))
         update_classification
         redraw_selection_area
         update_selection
