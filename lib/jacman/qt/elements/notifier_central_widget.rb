@@ -22,7 +22,7 @@ module JacintheManagement
                "   jacman-core : #{JacintheManagement::Core::VERSION}",
                "   jacman-notifications : #{JacintheManagement::Notifications::VERSION}",
                "   notifier: #{VERSION}",
-               'S.M.F. 2011-2014',
+               'S.M.F. 2013-2014',
                "\u00A9 Michel Demazure, LICENCE M.I.T."]
 
       slots :update_selection, :confirm

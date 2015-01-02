@@ -10,7 +10,6 @@ require 'Qt'
 
 module JacintheManagement
   module GuiQt
-
     # @param [String] message to be shown
     # @return [Bool] answer to dialog
     def self.confirm_dialog(message)
@@ -43,11 +42,11 @@ module JacintheManagement
         @active = true
         self.window_icon = Icons.from_file('Board-11-Flowers-icon.png')
         self.window_title =
-            "#{central_widget.subtitle}, version #{JacintheManagement::VERSION}"
+            "#{central_widget.subtitle}"
         @central_widget = central_widget
         @status = build_status_bar
         self.central_widget = @central_widget
-        set_geometry(*central_widget.geometry)
+        set_geometry(*central_widget.geometry) if central_widget.geometry
         update_values
       end
 
