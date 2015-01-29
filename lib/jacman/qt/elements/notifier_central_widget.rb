@@ -61,7 +61,7 @@ module JacintheManagement
 
       # print the report first line
       def initial_report
-        report(Notifications::REAL ? 'Mode réel' : 'Mode simulé')
+        report(Notifications::FAKE ? 'Mode simulé' : 'Mode réel')
       end
 
       # show th report

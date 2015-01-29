@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.description = 'Script tools for Jacinthe DB management'
   s.author = 'Michel Demazure'
   s.email = 'michel@demazure.com'
-  s.add_dependency 'qtbindings'
   s.homepage = 'http://github.com/badal/jacman-qt'
   s.license = 'MIT'
   s.files = %w(LICENSE README.md HISTORY.md MANIFEST Rakefile) + Dir.glob('{lib,spec}/**/*')
