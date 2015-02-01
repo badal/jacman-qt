@@ -22,7 +22,7 @@ module JacintheManagement
         used_in_method: 'Utilisé dans la méthode :'
     }
 
-    TYPES = ['Inconnu', 'Requête', 'Commande', 'Fragment']
+    TYPES = %w(Inconnu Requête Commande Fragment)
 
     # SQl source files
     class Source
@@ -58,8 +58,8 @@ module JacintheManagement
       end
 
       def save_json_info(new_info)
-        File.open(@json_file, "w:utf-8") do |file|
-          file.puts (new_info.to_json)
+        File.open(@json_file, 'w:utf-8') do |file|
+          file.puts(new_info.to_json)
         end
         @info = new_info
       end

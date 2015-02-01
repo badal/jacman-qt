@@ -141,7 +141,7 @@ module JacintheManagement
       def info_edited
         build_new_info
         @no_change = (@new_info == @file.info) || (@saved_index == 0)
-        @modif.text = @no_change ? '' : "<b>Informations modifiées</b>"
+        @modif.text = @no_change ? '' : '<b>Informations modifiées</b>'
         @save_button.enabled = !@no_change
       end
 
