@@ -20,6 +20,12 @@ end
 
 JacintheManagement.open_log('monitor.log')
 JacintheManagement.log('Opening monitor')
+JacintheManagement::Core::Infos.report.each do |info|
+  JacintheManagement.log(info)
+end
 central_class = JacintheManagement::GuiQt::MonitorCentralWidget
 JacintheManagement::GuiQt::CommonMain.run(central_class)
+JacintheManagement::Core::Infos.report.each do |info|
+  JacintheManagement.log(info)
+end
 JacintheManagement.log('Closing monitor')
