@@ -9,7 +9,6 @@
 require_relative('version.rb')
 require_relative('elements/log.rb')
 require_relative('elements/icons.rb')
-require_relative 'elements/sqlfiles.rb'
 require_relative('elements/common_main.rb')
 require_relative('elements/central_widget.rb')
 require_relative('elements/sql_manager_central_widget.rb')

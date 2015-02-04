@@ -15,6 +15,7 @@
   * monitor_qt : GUI monitor for plain users
   * catalog_manager_qt : GUI manager for building catalog
   * notifier_qt : GUI notification tool
+  * sql_manager_qt : GUI file management
 
 ## Usage
   Run one of the executables
@@ -31,7 +32,7 @@
    * Source code on repository [GitHub](https://github.com/badal/jacman-qt)
 
 ## Copyright
-  (c) 2013-2014, Michel Demazure
+  (c) 2013-2015, Michel Demazure
 
 ## License
   See LICENSE
