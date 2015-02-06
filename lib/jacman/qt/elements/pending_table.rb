@@ -142,6 +142,10 @@ module JacintheManagement
         end
       end
 
+      # ask if a large file is really to be shown
+      # @param [String] title title of file
+      # @param [String] file path of file
+      # @return [Bool] whether to show the file
       def ask_show_large_file(title, file)
         siz = File.readlines(file).size
         if siz < 100 || GuiQt.confirm_dialog("Montrer #{siz} lignes ?")

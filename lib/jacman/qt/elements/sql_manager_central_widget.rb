@@ -61,6 +61,7 @@ module JacintheManagement
         @save_button.enabled = false
       end
 
+      # build the type line
       def build_type_line
         box = Qt::HBoxLayout.new
         @layout.add_layout(box)
@@ -71,14 +72,17 @@ module JacintheManagement
         connect(@type, SIGNAL('activated(int)'), self, SLOT(:info_edited))
       end
 
+      # build the selection line
       def build_selection_line
         list = [FIRST_LINE] + SQLFiles::Source.all
         @selection = Qt::ComboBox.new
         @selection.add_items(list)
         @layout.add_widget(@selection)
-        connect(@selection, SIGNAL('activated(const QString&)'), self, SLOT('file_selected(const QString&)'))
+        connect(@selection, SIGNAL('activated(const QString&)'),
+                self, SLOT('file_selected(const QString&)'))
       end
 
+      # build the zone for information
       def build_info_zone
         SQLFiles::KEYS.each_pair do |key, value|
           @info_values[key] = Qt::LineEdit.new(NEANT)
@@ -87,16 +91,19 @@ module JacintheManagement
           label = Qt::Label.new(value.to_s)
           box.add_widget(label)
           box.add_widget(@info_values[key])
-          connect(@info_values[key], SIGNAL('textChanged(const QString&)'), self, SLOT(:info_edited))
+          connect(@info_values[key], SIGNAL('textChanged(const QString&)'),
+                  self, SLOT(:info_edited))
         end
       end
 
+      # build the zone to show the content of the file
       def build_content_zone
         @content = Qt::TextEdit.new
         @layout.add_widget(@content)
         @content.read_only = true
       end
 
+      # build the dialog line
       def build_modif_line
         box = Qt::HBoxLayout.new
         @modif = Qt::Label.new('')
@@ -111,6 +118,7 @@ module JacintheManagement
         @layout.add_layout(box)
       end
 
+      # set all starting values
       def empty_values
         @type.current_index = 0
         SQLFiles::KEYS.each_key do |key|
@@ -119,25 +127,30 @@ module JacintheManagement
         @content.text = ''
       end
 
-      def file_selected(string)
+      # slot: a filename has been selected
+      # @param [String] name name of file
+      def file_selected(name)
         if @no_change || @saved_index == 0 || GuiQt.confirm_dialog(confirm_text)
-          change_selection(string)
+          change_selection(name)
         else
           @selection.set_current_index(@saved_index)
         end
       end
 
-      def change_selection(string)
+      # update the GUI with the new selected file
+      # @param [String] name name of file
+      def change_selection(name)
         @saved_index = @selection.current_index
-        if string == FIRST_LINE
+        if name == FIRST_LINE
           empty_values
           return
         end
-        @file = SQLFiles::Source.new(string)
+        @file = SQLFiles::Source.new(name)
         update_content
         update_infos
       end
 
+      # slot: info has changed
       def info_edited
         build_new_info
         @no_change = (@new_info == @file.info) || (@saved_index == 0)
@@ -145,17 +158,20 @@ module JacintheManagement
         @save_button.enabled = !@no_change
       end
 
+      # slot: save infos in JSON file after confirmation dialog
       def save_infos
         return unless GuiQt.confirm_dialog('Enregistrer les modifications')
         do_save_infos
       end
 
+      # save the infos in JSON file
       def do_save_infos
         @file.save_json_info(@new_info)
         JacintheManagement.log("saved new infos for #{@file.name}")
         info_edited
       end
 
+      # @return [String] text to ask for confirmation
       def confirm_text
         [
             "Les informations sur le fichier  <b>#{@file.name}.sql</b> ",
@@ -164,6 +180,7 @@ module JacintheManagement
         ].join("\n")
       end
 
+      # build the new infos from what was entered
       def build_new_info
         @new_info = {}
         @new_info[:type] = @type.current_text.force_encoding('utf-8')
@@ -174,10 +191,12 @@ module JacintheManagement
         end
       end
 
+      # update the content area
       def update_content
         @content.text = @file.content
       end
 
+      # update the shown infos
       def update_infos
         @type.set_current_index(@file.type_index)
         @info_values.each_pair do |key, line|
@@ -186,6 +205,7 @@ module JacintheManagement
         @exec_button.enabled = @file.executable?
       end
 
+      # execute the sql query and show the result
       def execute
         answer = Sql.answer_to_query(JACINTHE_MODE, @file.script).join
         Qt::MessageBox.information(parent, 'Réponse', answer)
