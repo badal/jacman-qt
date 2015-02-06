@@ -61,11 +61,6 @@ END_CATALOG_HELP
         'Manager du catalogue de Jacinthe'
       end
 
-      # SLOT : about message
-      def about
-        [subtitle] + ABOUT
-      end
-
       # SLOT : show help MessageBox
       def help
         Qt::MessageBox.information(self,

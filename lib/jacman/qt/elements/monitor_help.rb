@@ -86,7 +86,7 @@ END_CMD_HELP
         Qt::MessageBox.information(self, 'Les commandes', CMD_HELP)
       end
 
-      # HTML hem file
+      # HTML help file
       HELP_FILE = File.expand_path('manager.html',
                                    File.join(File.dirname(__FILE__), '../../../..', 'help'))
 

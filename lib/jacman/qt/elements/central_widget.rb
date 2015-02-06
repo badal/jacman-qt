@@ -11,20 +11,30 @@ module JacintheManagement
   module GuiQt
     # Common central widget for all managers
     class CentralWidget < Qt::Widget
-      # Generic "About" message
-      ABOUT = ['Versions',
-               "   jacman-qt : #{JacintheManagement::VERSION}",
-               "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
-               "   jacman-core : #{JacintheManagement::Core::VERSION}",
-               'S.M.F. 2011-2014',
-               "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
-
       # @return [CentralWidget] new instance
       def initialize
         super()
         @frames = []
         @layout = Qt::VBoxLayout.new(self)
         build_layout
+      end
+
+      # abstract method
+      # @return [String] name of manager specialty
+      def subtitle
+        'to be overridden'
+      end
+
+      # @return [Array<String>] about_message
+      def about
+        [subtitle,
+         'Versions',
+         "   jacman-qt : #{JacintheManagement::VERSION}",
+         "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
+         "   jacman-core : #{JacintheManagement::Core::VERSION}",
+         'S.M.F. 2011-2014',
+         "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.'
+        ]
       end
 
       # Add a horizontal line

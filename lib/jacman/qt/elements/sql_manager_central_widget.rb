@@ -211,6 +211,10 @@ module JacintheManagement
         Qt::MessageBox.information(parent, 'Réponse', answer)
       end
 
+      # WARNING: overrides the common one, useless in this case
+      def update_values
+      end
+
       # FIXME: add help
       #  slot help command
       def help
