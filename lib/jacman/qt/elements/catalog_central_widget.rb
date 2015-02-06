@@ -31,14 +31,6 @@ l'importation correspondante et la mise à jour du catalogue.
 Pour l'utilisation dudit catalogue, on se réferera à l'aide spécifique.
 END_CATALOG_HELP
 
-      # "About" message
-      ABOUT = ['Versions',
-               "   jacman-qt : #{JacintheManagement::VERSION}",
-               "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
-               "   jacman-core : #{JacintheManagement::Core::VERSION}",
-               'S.M.F. 2011-2014',
-               "#{JacintheManagement::COPYRIGHT}", 'LICENCE M.I.T.']
-
       # Gescom commands to watch
       CATALOG_COMMANDS = %w(ca cn cs ct ce)
 
