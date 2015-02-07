@@ -26,7 +26,8 @@ module JacintheManagement
       FIRST_LINE = 'Choisir un fichier'
       NEANT = '---'
 
-      slots 'file_selected(const QString&)', :info_edited, :save_infos, :execute
+      slots 'file_selected(const QString&)',
+            :info_edited, :save_infos, :execute, :clone_execute
 
       # @return [[Integer] * 4] geometry of mother window
       def geometry
@@ -57,6 +58,7 @@ module JacintheManagement
         build_info_zone
         build_modif_line
         build_content_zone
+        build_execution_line
         @layout.addStretch
         @save_button.enabled = false
       end
@@ -111,6 +113,15 @@ module JacintheManagement
         @save_button = Qt::PushButton.new('Enregistrer les modifications')
         box.add_widget(@save_button)
         connect(@save_button, SIGNAL(:clicked), self, SLOT(:save_infos))
+        @layout.add_layout(box)
+      end
+
+      def build_execution_line
+        box = Qt::HBoxLayout.new
+        @clone_exec_button = Qt::PushButton.new('Exécuter dans le clone')
+        box.add_widget(@clone_exec_button)
+        @clone_exec_button.enabled = false
+        connect(@clone_exec_button, SIGNAL(:clicked), self, SLOT(:clone_execute))
         @exec_button = Qt::PushButton.new('Exécuter')
         box.add_widget(@exec_button)
         @exec_button.enabled = false
@@ -153,7 +164,7 @@ module JacintheManagement
       # slot: info has changed
       def info_edited
         build_new_info
-        @no_change = (@new_info == @file.info) || (@saved_index == 0)
+        @no_change = (@saved_index == 0) || (@new_info == @file.info)
         @modif.text = @no_change ? '' : '<b>Informations modifiées</b>'
         @save_button.enabled = !@no_change
       end
@@ -202,12 +213,19 @@ module JacintheManagement
         @info_values.each_pair do |key, line|
           line.text = @file.info[key] || NEANT
         end
-        @exec_button.enabled = @file.executable?
+        @exec_button.enabled = @file.query?
+        @clone_exec_button.enabled = @file.executable?
       end
 
-      # execute the sql query and show the result
+      # slot: execute the sql query and show the result
       def execute
         answer = Sql.answer_to_query(JACINTHE_MODE, @file.script).join
+        Qt::MessageBox.information(parent, 'Réponse', answer)
+      end
+
+      # slot: execute the sql query in the cloned base and show the result
+      def clone_execute
+        answer = Sql.answer_to_query(CLONE_MODE, @file.script).join
         Qt::MessageBox.information(parent, 'Réponse', answer)
       end
 
