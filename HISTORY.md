@@ -1,4 +1,19 @@
 # Jacinthe Management, a.k.a. JacMan
+## [v3.1.4]
+* sql_manager execution in clone
+
+## [v3.1.3]
+* sql_manager use new utils
+
+## [v3.1.2]
+* extra logging for monitor
+
+## [v3.1.1]
+* FAKE instead of REAL
+
+## [v3.1.0]
+* adding sql_manager
+
 ## [v3.0.6]
 * solved crazy git bug with  Qt vs. qt
 
