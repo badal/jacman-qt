@@ -40,7 +40,7 @@ module JacintheManagement
 
       # @return [String] name of manager specialty
       def subtitle
-        'Notification des abonnement électroniques'
+        'Notification des abonnements électroniques'
       end
 
       # @return [Array<String>] about message

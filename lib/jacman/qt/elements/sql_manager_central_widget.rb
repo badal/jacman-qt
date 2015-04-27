@@ -116,6 +116,7 @@ module JacintheManagement
         @layout.add_layout(box)
       end
 
+      # build the execution line
       def build_execution_line
         box = Qt::HBoxLayout.new
         @clone_exec_button = Qt::PushButton.new('Exécuter dans le clone')

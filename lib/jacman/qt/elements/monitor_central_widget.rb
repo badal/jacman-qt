@@ -55,7 +55,7 @@ module JacintheManagement
       def extend_status(status)
         force_gi = Qt::PushButton.new('Force gi !')
         status.addPermanentWidget(force_gi)
-        status.connect(force_gi, SIGNAL(:clicked), self, SLOT(:"gi!"))
+        status.connect(force_gi, SIGNAL(:clicked), self, SLOT(:'gi!'))
       end
 
       # Add a command range
