@@ -1,18 +1,17 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-# File: monitor_central_widget.rb
-# Created:  02/10/13 for manager
-# Modified: 12/14 for monitor
+# File: sql_manager_central_widget.rb
+# Created:  april 2015
 #
 # (c) Michel Demazure <michel@demazure.com>
 
 # script methods for Jacinthe Management
 module JacintheManagement
   module GuiQt
-    # Central widget for manager
+    # Central widget for SQL manager
     class SqlManagerCentralWidget < CentralWidget
-      # version of the notifier
+      # version of the SQLl_manager
       VERSION = '0.1.4'
 
       # "About" message
@@ -25,9 +24,6 @@ module JacintheManagement
 
       FIRST_LINE = 'Choisir un fichier'
       NEANT = '---'
-
-      slots 'file_selected(const QString&)',
-            :info_edited, :save_infos, :execute, :clone_execute
 
       # @return [[Integer] * 4] geometry of mother window
       def geometry
@@ -71,7 +67,7 @@ module JacintheManagement
         @type.add_items(SQLFiles::TYPES)
         box.add_widget(Qt::Label.new('Type :'))
         box.add_widget(@type)
-        connect(@type, SIGNAL('activated(int)'), self, SLOT(:info_edited))
+        connect(@type, SIGNAL('activated(int)')) { info_edited }
       end
 
       # build the selection line
@@ -80,8 +76,7 @@ module JacintheManagement
         @selection = Qt::ComboBox.new
         @selection.add_items(list)
         @layout.add_widget(@selection)
-        connect(@selection, SIGNAL('activated(const QString&)'),
-                self, SLOT('file_selected(const QString&)'))
+        connect(@selection, SIGNAL('activated(const QString&)')) { |name| file_selected(name) }
       end
 
       # build the zone for information
@@ -93,8 +88,7 @@ module JacintheManagement
           label = Qt::Label.new(value.to_s)
           box.add_widget(label)
           box.add_widget(@info_values[key])
-          connect(@info_values[key], SIGNAL('textChanged(const QString&)'),
-                  self, SLOT(:info_edited))
+          connect(@info_values[key], SIGNAL('textChanged(const QString&)')) { info_edited }
         end
       end
 
@@ -112,7 +106,7 @@ module JacintheManagement
         box.add_widget(@modif)
         @save_button = Qt::PushButton.new('Enregistrer les modifications')
         box.add_widget(@save_button)
-        connect(@save_button, SIGNAL(:clicked), self, SLOT(:save_infos))
+        connect(@save_button, SIGNAL(:clicked)) { save_infos }
         @layout.add_layout(box)
       end
 
@@ -122,11 +116,11 @@ module JacintheManagement
         @clone_exec_button = Qt::PushButton.new('Exécuter dans le clone')
         box.add_widget(@clone_exec_button)
         @clone_exec_button.enabled = false
-        connect(@clone_exec_button, SIGNAL(:clicked), self, SLOT(:clone_execute))
+        connect(@clone_exec_button, SIGNAL(:clicked)) { clone_execute }
         @exec_button = Qt::PushButton.new('Exécuter')
         box.add_widget(@exec_button)
         @exec_button.enabled = false
-        connect(@exec_button, SIGNAL(:clicked), self, SLOT(:execute))
+        connect(@exec_button, SIGNAL(:clicked)) { execute }
         @layout.add_layout(box)
       end
 
