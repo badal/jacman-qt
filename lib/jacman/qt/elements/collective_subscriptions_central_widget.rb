@@ -12,7 +12,7 @@ module JacintheManagement
     # Central widget for collective subscriptions
     class CollectiveSubscriptionsCentralWidget < CentralWidget
       # version of the collective_manager
-      VERSION = '0.1.0'
+      VERSION = '0.1.1'
 
       # "About" message
       ABOUT = ['Versions',
@@ -25,6 +25,10 @@ module JacintheManagement
 
       # FIRST_LINE = 'Choisir un fichier'
       # NEANT = '---'
+
+
+      SIGNAL_EDITING_FINISHED = SIGNAL('editingFinished()')
+
 
       # @return [[Integer] * 4] geometry of mother window
       def geometry
@@ -47,39 +51,110 @@ module JacintheManagement
 
       # build the layout
       def build_layout
+        init_values
+        build_name_line
         build_client_line
-
+        build_journal_choices
         build_report_area
+        build_command_area
+      end
 
+      def init_values
+        @year = Coll::YEAR
+        @journals = Coll.journals
+      end
+
+      def build_name_line
+        @layout.add_widget(Qt::Label.new("<b>L'abonnement</b>"))
+        box = Qt::HBoxLayout.new
+        @layout.add_layout(box)
+        box.add_widget(Qt::Label.new('Nom :'))
+        name_field = Qt::LineEdit.new
+        box.add_widget(name_field)
+        connect(name_field, SIGNAL_EDITING_FINISHED) { @name = name_field.text }
+        box.add_widget(Qt::Label.new('Année :'))
+        year_field = Qt::LineEdit.new(@year.to_s)
+        box.add_widget(year_field)
+        connect(year_field, SIGNAL_EDITING_FINISHED) { @year = name_field.text.to_i }
       end
 
       def build_client_line
+        @layout.add_widget(Qt::Label.new("<b>Le financeur</b>"))
         box = Qt::HBoxLayout.new
         @layout.add_layout(box)
         box.add_widget(Qt::Label.new('Client :'))
         client = Qt::LineEdit.new
         box.add_widget(client)
-        connect(client, SIGNAL('editingFinished()')) { check_client(client.text) }
+        connect(client, SIGNAL_EDITING_FINISHED) { fetch_client(client.text) }
         box.add_widget(Qt::Label.new('Facture :'))
         billing = Qt::LineEdit.new
         box.add_widget(billing)
-        connect(billing, SIGNAL('editingFinished()')) { @billing = billing.text }
+        connect(billing, SIGNAL_EDITING_FINISHED) { @billing = billing.text }
       end
 
-      def check_client(client)
+      def fetch_client(client)
         return if client == @provider
         if Coll.fetch_client(client)
           @provider = client
           report("Client #{@provider} identifié")
         else
+          @provider = nil
           error('Ce client n\'existe pas')
         end
       end
 
+      def build_journal_choices
+        @selections = {}
+        @layout.add_widget(Qt::Label.new("<b> Les revues</b>"))
+        @journals.each_with_index do |(_, journal), idx|
+          next unless journal
+          box = Qt::HBoxLayout.new
+          @layout.add_layout(box)
+          check = Qt::CheckBox.new
+          connect(check, SIGNAL(:clicked)) { @selections[idx] = check.checked? }
+          box.add_widget(check)
+          box.add_widget(Qt::Label.new(journal))
+          box.add_stretch
+        end
+      end
+
       def build_report_area
-        @report = Qt::TextEdit.new
+        @report = Qt::TextEdit.new('')
         @layout.add_widget(@report)
         @report.read_only = true
+      end
+
+      def build_command_area
+        @layout.add_widget(Qt::Label.new("<b>Actions</b>"))
+        box = Qt::HBoxLayout.new
+        @layout.add_layout(box)
+        essai = Qt::PushButton.new('essai')
+        connect(essai, SIGNAL(:clicked)) { essai_report }
+        box.add_widget(essai)
+      end
+
+      def check(variable, term)
+        return true if variable
+        error("Pas de #{term}")
+        false
+      end
+
+      def build_collective
+        return false unless check(@provider, 'client') &&
+            check(@name, 'nom de l\'abonnement') &&
+            check(@billing, 'facture') &&
+            check(@year, 'année')
+        journal_ids = @selections.select { |_, bool| bool }.map { |key, _| key }.sort
+        report 'Abonnement collectif créé'
+        Coll::CollectiveSubscription.new(@name, @provider, @billing, journal_ids, [], @year)
+      end
+
+      def essai_report
+        @collective = build_collective
+        return unless @collective
+
+
+        report @collective.inspect
       end
 
       def error(message)
