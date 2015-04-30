@@ -26,9 +26,8 @@ module JacintheManagement
       # FIRST_LINE = 'Choisir un fichier'
       # NEANT = '---'
 
-
       SIGNAL_EDITING_FINISHED = SIGNAL('editingFinished()')
-
+      SIGNAL_CLICKED = SIGNAL(:clicked)
 
       # @return [[Integer] * 4] geometry of mother window
       def geometry
@@ -60,7 +59,7 @@ module JacintheManagement
       end
 
       def init_values
-        @year = Coll::YEAR
+        @year = Coll::YEAR.to_s
         @journals = Coll.journals
       end
 
@@ -71,25 +70,25 @@ module JacintheManagement
         box.add_widget(Qt::Label.new('Nom :'))
         name_field = Qt::LineEdit.new
         box.add_widget(name_field)
-        connect(name_field, SIGNAL_EDITING_FINISHED) { @name = name_field.text }
+        connect(name_field, SIGNAL_EDITING_FINISHED) { @name = name_field.text.strip }
         box.add_widget(Qt::Label.new('Année :'))
         year_field = Qt::LineEdit.new(@year.to_s)
         box.add_widget(year_field)
-        connect(year_field, SIGNAL_EDITING_FINISHED) { @year = name_field.text.to_i }
+        connect(year_field, SIGNAL_EDITING_FINISHED) { @year = name_field.text.strip }
       end
 
       def build_client_line
-        @layout.add_widget(Qt::Label.new("<b>Le financeur</b>"))
+        @layout.add_widget(Qt::Label.new('<b>Le financeur</b>'))
         box = Qt::HBoxLayout.new
         @layout.add_layout(box)
         box.add_widget(Qt::Label.new('Client :'))
         client = Qt::LineEdit.new
         box.add_widget(client)
-        connect(client, SIGNAL_EDITING_FINISHED) { fetch_client(client.text) }
+        connect(client, SIGNAL_EDITING_FINISHED) { fetch_client(client.text.strip) }
         box.add_widget(Qt::Label.new('Facture :'))
         billing = Qt::LineEdit.new
         box.add_widget(billing)
-        connect(billing, SIGNAL_EDITING_FINISHED) { @billing = billing.text }
+        connect(billing, SIGNAL_EDITING_FINISHED) { @billing = billing.text.strip }
       end
 
       def fetch_client(client)
@@ -105,13 +104,13 @@ module JacintheManagement
 
       def build_journal_choices
         @selections = {}
-        @layout.add_widget(Qt::Label.new("<b> Les revues</b>"))
+        @layout.add_widget(Qt::Label.new('<b> Les revues</b>'))
         @journals.each_with_index do |(_, journal), idx|
           next unless journal
           box = Qt::HBoxLayout.new
           @layout.add_layout(box)
           check = Qt::CheckBox.new
-          connect(check, SIGNAL(:clicked)) { @selections[idx] = check.checked? }
+          connect(check, SIGNAL_CLICKED) { @selections[idx] = check.checked? }
           box.add_widget(check)
           box.add_widget(Qt::Label.new(journal))
           box.add_stretch
@@ -125,16 +124,16 @@ module JacintheManagement
       end
 
       def build_command_area
-        @layout.add_widget(Qt::Label.new("<b>Actions</b>"))
+        @layout.add_widget(Qt::Label.new('<b>Actions</b>'))
         box = Qt::HBoxLayout.new
         @layout.add_layout(box)
         essai = Qt::PushButton.new('essai')
-        connect(essai, SIGNAL(:clicked)) { essai_report }
+        connect(essai, SIGNAL_CLICKED) { essai_report }
         box.add_widget(essai)
       end
 
       def check(variable, term)
-        return true if variable
+        return true if variable && !variable.empty?
         error("Pas de #{term}")
         false
       end
@@ -146,20 +145,18 @@ module JacintheManagement
             check(@year, 'année')
         journal_ids = @selections.select { |_, bool| bool }.map { |key, _| key }.sort
         report 'Abonnement collectif créé'
-        Coll::CollectiveSubscription.new(@name, @provider, @billing, journal_ids, [], @year)
+        Coll::CollectiveSubscription.new(@name, @provider, @billing, journal_ids, @year.to_i)
       end
 
       def essai_report
         @collective = build_collective
         return unless @collective
 
-
         report @collective.inspect
       end
 
       def error(message)
-        @report.append('ERREUR : ' + message)
-
+        @report.append("<font color=red><b>" 'ERREUR</b> : </color> ' + message)
       end
 
       def report(message)
