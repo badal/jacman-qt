@@ -16,15 +16,13 @@ module JacintheManagement
       VERSION = '0.3.0'
 
       # "About" message
-      ABOUT = ['Versions',
+      ABOUT = ['Versions :',
                "   jacman-qt : #{JacintheManagement::VERSION}",
                "   jacman-utils : #{JacintheManagement::Utils::VERSION}",
                "   jacman-notifications : #{JacintheManagement::Notifications::VERSION}",
                "   notifier: #{VERSION}",
                'S.M.F. 2014',
                "\u00A9 Michel Demazure, LICENCE M.I.T."]
-
-      slots :update_selection, :confirm
 
       # format for *caption_text*
       FMT = '%3d '
@@ -87,7 +85,7 @@ module JacintheManagement
           box.add_widget(@sel)
           @notify_button = Qt::PushButton.new('Notifier ?')
           box.add_widget(@notify_button)
-          connect(@notify_button, SIGNAL(:clicked), self, SLOT(:confirm))
+          connect(@notify_button, SIGNAL(:clicked)) { confirm }
         end
       end
 
@@ -98,7 +96,7 @@ module JacintheManagement
       end
 
       # build the selection area
-      # FLOG: 25.2
+      # FLOG: 25.3
       def build_selection_area
         @pending_notifications = Notifications::Base.classified_notifications
         @check_buttons = []
@@ -110,7 +108,7 @@ module JacintheManagement
             line.add_widget(@numbers[idx])
             Qt::CheckBox.new do |button|
               @check_buttons[idx] = button
-              connect(button, SIGNAL(:clicked), self, SLOT(:update_selection))
+              connect(button, SIGNAL(:clicked)) { update_selection }
               line.add_widget(button)
             end
             line.add_widget(Qt::Label.new(format_key(key)))
