@@ -59,6 +59,7 @@ module JacintheManagement
       def init_values
         @year = Coll::YEAR.to_s
         @journals = Coll.journals
+        @collective = nil
       end
 
       # build the corresponding part
@@ -137,15 +138,21 @@ module JacintheManagement
         @layout.add_widget(Qt::Label.new('<b>Actions</b>'))
         box = Qt::HBoxLayout.new
         @layout.add_layout(box)
-        essai = Qt::PushButton.new('essai')
-        connect(essai, SIGNAL_CLICKED) { essai_report }
-        box.add_widget(essai)
+        create_collective = Qt::PushButton.new('Créer')
+        connect(create_collective, SIGNAL_CLICKED) { @collective = build_collective }
+        box.add_widget(create_collective)
+        load_tiers = Qt::PushButton.new('Lire liste de tiers')
+        connect(load_tiers, SIGNAL_CLICKED) { add_tiers_list }
+        box.add_widget(load_tiers)
+        process = Qt::PushButton.new('Créer les abonnements')
+        connect(process, SIGNAL_CLICKED) { process_collective }
+        box.add_widget(process)
       end
 
       # check if variable has got a correct value
       #
       # @param [String] variable who should be non blank
-      # @param [String] term name fur the user
+      # @param [String] term name for the user
       # @return [Bool] whether variable exists and not blank
       def check(variable, term)
         return true if variable && !variable.empty?
@@ -155,21 +162,58 @@ module JacintheManagement
 
       # build collective if possible and report
       #
-      # @return [CollectiveSubscription] collective built
+      # @return [CollectiveSubscription | nil] collective built
       def build_collective
-        return false unless check(@provider, 'client') &&
+        return nil unless check(@provider, 'client') &&
             check(@name, 'nom de l\'abonnement') &&
             check(@billing, 'facture') &&
             check(@year, 'année')
         journal_ids = @selections.select { |_, bool| bool }.map { |key, _| key }.sort
+        if journal_ids.size == 0
+          error 'pas de revues'
+          return
+        end
         report 'Abonnement collectif créé'
         Coll::CollectiveSubscription.new(@name, @provider, @billing, journal_ids, @year.to_i)
       end
 
-      def essai_report
-        @collective = build_collective
-        return unless @collective
+      # TODO: comment
+      def read_tiers_list
+        filename = Qt::FileDialog.getOpenFileName(self,
+                                                  'Charger une liste de tiers',
+                                                  '',
+                                                  '')
+        return [] unless filename
+        lines = File.readlines(filename)
+        lines.map { |line| line.strip.to_i }.sort.uniq.select { |val| val > 0 }
+      end
 
+      # TODO: comment
+      def load_tiers_list
+        tiers_list = read_tiers_list
+        if tiers_list.size > 0
+          report "Liste : #{tiers_list.size} tiers"
+        else
+          error 'Liste vide'
+        end
+        tiers_list
+      end
+
+      # TODO: comment
+      def add_tiers_list
+        unless @collective
+          error 'Créer l\'abonnement collectif'
+          return
+        end
+        tiers_list = load_tiers_list
+        return unless tiers_list.size > 0
+        rpt = @collective.add_tiers_list(tiers_list)
+        rpt.each { |line| error(line) }
+        report "#{@collective.client_list.size} tiers/clients"
+      end
+
+      def process_collective
+        puts "OK"
         report @collective.inspect
       end
 
