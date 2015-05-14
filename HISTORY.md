@@ -1,4 +1,8 @@
 # Jacinthe Management, a.k.a. JacMan
+## [v3.1.5]
+* various style changes
+* collective_subscriptions_central_widget
+
 ## [v3.1.4]
 * sql_manager execution in clone
 

@@ -212,15 +212,16 @@ module JacintheManagement
         report "#{@collective.client_list.size} tiers/clients"
       end
 
+      # FIXME: temporary
       def process_collective
-        puts "OK"
+        puts 'OK'
         report @collective.inspect
       end
 
       # show an error message
       # @param [String] message message to show
       def error(message)
-        @report.append("<font color=red><b>" 'ERREUR</b> : </color> ' + message)
+        @report.append('<font color=red><b>' 'ERREUR</b> : </color> ' + message)
       end
 
       # show an report message

@@ -76,7 +76,7 @@ module JacintheManagement
       # @param [Integer] col column number
       def clicked(row, col)
         return unless row == 2
-        level, file, _ = @elements[col - 1]
+        level, file, = @elements[col - 1]
         title = @headers[col - 1]
         GuiQt.show_file(self, title, file) unless level == :NEVER
       end

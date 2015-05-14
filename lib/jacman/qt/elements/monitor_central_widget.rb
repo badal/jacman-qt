@@ -91,7 +91,7 @@ module JacintheManagement
       #   Logging added here for debugging
       def report
         res = @frames.map(&:received)
-        text = res.select { |line| line && line != "\n" }.first
+        text = res.find { |line| line && line != "\n" }
         return unless text
         # WARNING: here logging
         JacintheManagement.log(text)
