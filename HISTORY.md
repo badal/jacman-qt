@@ -1,4 +1,7 @@
 # Jacinthe Management, a.k.a. JacMan
+## [v3.1.6]
+* new directory base with common files
+
 ## [v3.1.5]
 * various style changes
 * collective_subscriptions_central_widget

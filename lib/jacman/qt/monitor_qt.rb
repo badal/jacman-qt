@@ -7,9 +7,8 @@
 # (c) Michel Demazure <michel@demazure.com>
 
 require_relative('version.rb')
+require_relative('base.rb')
 require_relative('elements/monitor_help.rb')
-require_relative('elements/log.rb')
-require_relative('elements/common_main.rb')
 require_relative 'elements/monitor_elements.rb'
 require_relative('elements/monitor_central_widget.rb')
 
