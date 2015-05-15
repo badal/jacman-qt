@@ -177,7 +177,9 @@ module JacintheManagement
         Coll::CollectiveSubscription.new(@name, @provider, @billing, journal_ids, @year.to_i)
       end
 
-      # TODO: comment
+      # ask for a file, read it and return lines consisting of a integer
+      #
+      # @return [Array<Integer>] list of tiers id
       def read_tiers_list
         filename = Qt::FileDialog.getOpenFileName(self,
                                                   'Charger une liste de tiers',
@@ -188,7 +190,9 @@ module JacintheManagement
         lines.map { |line| line.strip.to_i }.sort.uniq.select { |val| val > 0 }
       end
 
-      # TODO: comment
+      # ask for a file, read it and return lines consisting of a integer
+      #   with error management
+      # @return [Array<Integer>] list of tiers id
       def load_tiers_list
         tiers_list = read_tiers_list
         if tiers_list.size > 0
@@ -199,7 +203,8 @@ module JacintheManagement
         tiers_list
       end
 
-      # TODO: comment
+      # add a tiers list to @collective
+      #
       def add_tiers_list
         unless @collective
           error 'Créer l\'abonnement collectif'
