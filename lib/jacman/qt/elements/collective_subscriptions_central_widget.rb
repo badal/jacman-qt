@@ -94,22 +94,6 @@ module JacintheManagement
         connect(billing, SIGNAL_EDITING_FINISHED) { @billing = billing.text.strip }
       end
 
-      # check if given client exists in DB and return its id
-      #
-      # @param [String] client id given by user
-      # @return [String | nil] valid client_id or nil
-      def fetch_client(client)
-        return if client == @provider
-        if Coll.fetch_client(client)
-          @provider = client
-          report("Client #{@provider} identifié")
-          client
-        else
-          error('Ce client n\'existe pas')
-          nil
-        end
-      end
-
       # build the corresponding part
       def build_journal_choices
         @selections = {}
@@ -138,7 +122,7 @@ module JacintheManagement
         @layout.add_widget(Qt::Label.new('<b>Actions</b>'))
         box = Qt::HBoxLayout.new
         @layout.add_layout(box)
-        create_collective = Qt::PushButton.new('Créer')
+        create_collective = Qt::PushButton.new('Créer l\'abo. coll.')
         connect(create_collective, SIGNAL_CLICKED) { @collective = build_collective }
         box.add_widget(create_collective)
         load_tiers = Qt::PushButton.new('Lire liste de tiers')
@@ -148,6 +132,46 @@ module JacintheManagement
         connect(process, SIGNAL_CLICKED) { process_collective }
         box.add_widget(process)
       end
+
+      # check if given client exists in DB and return its id
+      #
+      # @param [String] client id given by user
+      # @return [String | nil] valid client_id or nil
+      def fetch_client(client)
+        return if client == @provider
+        if Coll.fetch_client(client)
+          @provider = client
+          report("Client #{@provider} identifié")
+          client
+        else
+          error('Ce client n\'existe pas')
+          nil
+        end
+      end
+
+      # show an error message
+      # @param [String] message message to show
+      def error(message)
+        @report.append('<font color=red><b>' 'ERREUR</b> : </color> ' + message)
+      end
+
+      # show an report message
+      # @param [String] message message to show
+      def report(message)
+        @report.append(message)
+      end
+
+      # WARNING: overrides the common one, useless in this case
+      def update_values
+      end
+
+      # FIXME: add help
+      #  slot help command
+      def help
+        puts 'add help'
+      end
+
+      ## Controller methods
 
       # check if variable has got a correct value
       #
@@ -180,21 +204,21 @@ module JacintheManagement
       # ask for a file, read it and return lines consisting of a integer
       #
       # @return [Array<Integer>] list of tiers id
-      def read_tiers_list
+      def read_tiers_list_file
         filename = Qt::FileDialog.getOpenFileName(self,
                                                   'Charger une liste de tiers',
                                                   '',
                                                   '')
         return [] unless filename
-        lines = File.readlines(filename)
-        lines.map { |line| line.strip.to_i }.sort.uniq.select { |val| val > 0 }
+        File.readlines(filename)
       end
 
       # ask for a file, read it and return lines consisting of a integer
       #   with error management
       # @return [Array<Integer>] list of tiers id
       def load_tiers_list
-        tiers_list = read_tiers_list
+        lines = read_tiers_list_file
+        tiers_list = lines.map { |line| line.strip.to_i }.sort.uniq.select { |val| val > 0 }
         if tiers_list.size > 0
           report "Liste : #{tiers_list.size} tiers"
         else
@@ -219,78 +243,13 @@ module JacintheManagement
 
       # FIXME: temporary
       def process_collective
-        puts 'OK'
-        report @collective.inspect
-      end
-
-      # show an error message
-      # @param [String] message message to show
-      def error(message)
-        @report.append('<font color=red><b>' 'ERREUR</b> : </color> ' + message)
-      end
-
-      # show an report message
-      # @param [String] message message to show
-      def report(message)
-        @report.append(message)
-      end
-
-      # WARNING: overrides the common one, useless in this case
-      def update_values
-      end
-
-      # FIXME: add help
-      #  slot help command
-      def help
-        puts 'add help'
+        subs, errors = *@collective.process
+        subs.each { |line| report line }
+        if errors.size > 1
+          error "Tiers sans mail"
+          errors.each { |line| report line }
+        end
       end
     end
   end
 end
-__END__
-
-      # slot: a filename has been selected
-      # @param [String] name name of file
-      def file_selected(name)
-        if @no_change || @saved_index == 0 || GuiQt.confirm_dialog(confirm_text)
-          change_selection(name)
-        else
-          @selection.set_current_index(@saved_index)
-        end
-      end
-
-      # update the GUI with the new selected file
-      # @param [String] name name of file
-      def change_selection(name)
-        @saved_index = @selection.current_index
-        if name == FIRST_LINE
-          empty_values
-          return
-        end
-        @file = SQLFiles::Source.new(name)
-        update_content
-        update_infos
-      end
-
-      # slot: save infos in JSON file after confirmation dialog
-      def save_infos
-        return unless GuiQt.confirm_dialog('Enregistrer les modifications')
-        do_save_infos
-      end
-
-      # save the infos in JSON file
-      def do_save_infos
-        @file.save_json_info(@new_info)
-        JacintheManagement.log("saved new infos for #{@file.name}")
-        info_edited
-      end
-
-      # @return [String] text to ask for confirmation
-      def confirm_text
-        [
-            "Les informations sur le fichier  <b>#{@file.name}.sql</b> ",
-            'ont été modifiées, mais n\'ont pas été enregistrées.',
-            'Voulez-vous vraiment ignorer ces modifications ?'
-        ].join("\n")
-      end
-
