@@ -59,7 +59,7 @@ module JacintheManagement
       def init_values
         @year = Coll::YEAR.to_s
         @journals = Coll.journals
-        @collective = nil
+        @subscriber = nil
       end
 
       # build the corresponding part
@@ -123,7 +123,7 @@ module JacintheManagement
         box = Qt::HBoxLayout.new
         @layout.add_layout(box)
         create_collective = Qt::PushButton.new('Créer l\'abo. coll.')
-        connect(create_collective, SIGNAL_CLICKED) { @collective = build_collective }
+        connect(create_collective, SIGNAL_CLICKED) { @subscriber = build_subscriber }
         box.add_widget(create_collective)
         load_tiers = Qt::PushButton.new('Lire liste de tiers')
         connect(load_tiers, SIGNAL_CLICKED) { add_tiers_list }
@@ -186,8 +186,8 @@ module JacintheManagement
 
       # build collective if possible and report
       #
-      # @return [CollectiveSubscription | nil] collective built
-      def build_collective
+      # @return [Subscriber | nil] collective subscriber built
+      def build_subscriber
         return nil unless check(@provider, 'client') &&
             check(@name, 'nom de l\'abonnement') &&
             check(@billing, 'facture') &&
@@ -198,7 +198,8 @@ module JacintheManagement
           return
         end
         report 'Abonnement collectif créé'
-        Coll::CollectiveSubscription.new(@name, @provider, @billing, journal_ids, @year.to_i)
+        coll = Coll::CollectiveSubscription.new(@name, @provider, @billing, journal_ids, @year.to_i)
+        Coll::Subscriber.new(coll)
       end
 
       # ask for a file, read it and return lines consisting of a integer
@@ -230,20 +231,20 @@ module JacintheManagement
       # add a tiers list to @collective
       #
       def add_tiers_list
-        unless @collective
+        unless @subscriber
           error 'Créer l\'abonnement collectif'
           return
         end
         tiers_list = load_tiers_list
         return unless tiers_list.size > 0
-        rpt = @collective.add_tiers_list(tiers_list)
+        rpt = @subscriber.add_tiers_list(tiers_list)
         rpt.each { |line| error(line) }
-        report "#{@collective.client_list.size} tiers/clients"
+        report "#{@subscriber.client_list.size} tiers/clients"
       end
 
       # FIXME: temporary
       def process_collective
-        subs, errors = *@collective.process
+        subs, errors = *@subscriber.process
         subs.each { |line| report line }
         if errors.size > 1
           error "Tiers sans mail"
