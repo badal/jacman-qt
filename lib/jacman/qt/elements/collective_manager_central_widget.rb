@@ -175,7 +175,7 @@ module JacintheManagement
       ## fill_in methods
 
       def fill_if_possible
-        selected = @collectives.select { |coll| coll.name == @name }.first
+        selected = @collectives.find { |coll| coll.name == @name }
         if selected
           @collective = selected
           fill_in
@@ -265,13 +265,7 @@ module JacintheManagement
       end
 
       def confirm_text
-        journals = @journals.values_at(*@journal_ids).map(&:last)
-        ([
-            "  Nom : #{@name}",
-            "  Client : #{@provider}",
-            "  Année : #{@year}",
-            "  Facture : #{@billing}"
-        ] + journals).join("\n")
+        @collective.report.join("\n")
       end
     end
   end
