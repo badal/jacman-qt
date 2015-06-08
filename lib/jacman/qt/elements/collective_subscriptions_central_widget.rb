@@ -37,7 +37,7 @@ module JacintheManagement
 
       # @return [String] name of manager specialty
       def subtitle
-        'Management des abonnements collectifs'
+        'Exploitation des abonnements collectifs'
       end
 
       # @return [Array<String>] about message
