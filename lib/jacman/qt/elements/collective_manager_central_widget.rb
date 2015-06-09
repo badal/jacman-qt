@@ -12,7 +12,7 @@ module JacintheManagement
     # Central widget for collective subscriptions management
     class CollectiveManagerCentralWidget < CentralWidget
       # version of the collective_manager
-      VERSION = '0.3.1'
+      VERSION = '0.3.2'
 
       # "About" message
       ABOUT = ['Versions :',
@@ -67,8 +67,10 @@ module JacintheManagement
       def load_all_collectives
         @collectives = Coll::CollectiveSubscription.extract_all
         @collective_names = @collectives.map(&:name)
+        report('-' * 30)
         report 'Abonnements disponibles'
         @collective_names.each { |name| report name }
+        report('-' * 30)
       end
 
       # build the corresponding part
@@ -260,8 +262,13 @@ module JacintheManagement
         built = build_collective
         return unless built
         @collective = built
+        if @collective_names.include?(@name)
+          error "Un abonnement de nom #{@name} existe"
+          return
+        end
         return unless GuiQt.confirm_dialog(confirm_text)
-        @collective.insert_in_database
+        puts @collective.insert_in_database
+        load_all_collectives
       end
 
       def confirm_text
