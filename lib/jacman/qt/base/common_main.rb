@@ -41,8 +41,7 @@ module JacintheManagement
         install_event_filter(self)
         @active = true
         self.window_icon = Icons.from_file('Board-11-Flowers-icon.png')
-        self.window_title =
-            "#{central_widget.subtitle}"
+        self.window_title = central_widget.subtitle
         @central_widget = central_widget
         @status = build_status_bar
         self.central_widget = @central_widget

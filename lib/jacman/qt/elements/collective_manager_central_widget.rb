@@ -169,22 +169,24 @@ module JacintheManagement
 
       ## Controller methods
 
+      # slot
       def process_name_field
         @name = @name_field.text.strip
-        fill_if_possible if @extracting
+        load_collective_if_possible if @extracting
       end
 
       ## fill_in methods
 
-      def fill_if_possible
+      # try and load a collective
+      def load_collective_if_possible
         selected = @collectives.find { |coll| coll.name == @name }
-        if selected
-          @collective = selected
-          fill_in
-          report "abonnement #{@name} chargé"
-        end
+        return unless selected
+        @collective = selected
+        fill_in
+        report "abonnement #{@name} chargé"
       end
 
+      # fill the parameters of the selected colective
       def fill_in
         @name_field.text = @name = @collective.name
         @client_field.text = @provider = @collective.provider
@@ -193,6 +195,7 @@ module JacintheManagement
         check_journals(@collective.journal_ids)
       end
 
+      # @param [Array<Integer>] list ids of selected journals
       def check_journals(list)
         list.each do |jrl|
           @check[jrl].checked = true
@@ -200,15 +203,17 @@ module JacintheManagement
         end
       end
 
+      # create action has been selected
       def create_collective
         @load_button.enabled = false
         @extracting = false
       end
 
+      # loading action has been selected
       def load_collective
         @create_button.enabled = false
         @extracting = true
-        fill_if_possible
+        load_collective_if_possible
       end
 
       # check if given client exists in DB and return its id
@@ -254,10 +259,7 @@ module JacintheManagement
         Coll::CollectiveSubscription.new(@name, @provider, @billing, @journal_ids, @year.to_i)
       end
 
-      def report_collective
-        report "Abonnement collectif #{@name} créé"
-      end
-
+      # do update the loaded collective
       def update_collective
         built = build_collective
         return unless built
@@ -266,12 +268,13 @@ module JacintheManagement
           error "Un abonnement de nom #{@name} existe"
           return
         end
-        return unless GuiQt.confirm_dialog(confirm_text)
+        return unless GuiQt.confirm_dialog(built_parameters)
         puts @collective.insert_in_database
         load_all_collectives
       end
 
-      def confirm_text
+      # @return [String] parameters of built collective
+      def built_parameters
         @collective.report.join("\n")
       end
     end
