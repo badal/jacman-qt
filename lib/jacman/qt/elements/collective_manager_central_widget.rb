@@ -65,7 +65,7 @@ module JacintheManagement
 
       # load all collectives from the database
       def load_all_collectives
-        @collectives = Coll::CollectiveSubscription.extract_all
+        @collectives = Coll::Collective.extract_all
         @collective_names = @collectives.map(&:name)
         report('-' * 30)
         report 'Abonnements disponibles'
@@ -256,7 +256,7 @@ module JacintheManagement
           error 'pas de revues'
           return nil
         end
-        Coll::CollectiveSubscription.new(@name, @provider, @billing, @journal_ids, @year.to_i)
+        Coll::Collective.new(@name, @provider, @billing, @journal_ids, @year.to_i)
       end
 
       # do update the loaded collective
